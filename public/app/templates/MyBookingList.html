@@ -1,0 +1,20 @@
+<div class="container">  
+	<div class="well"> 
+	  <div class="row">
+		<ul class="list-unstyled">
+		  <li ng-repeat="booking in bookings" class="thumbnail">
+			<div ng-switch="booking.Status=='PendingCheckin'">
+			  <a ng-switch-when="true" href="/app/booking/{{booking.CustomerId}}/{{booking.CustomerPackageId}}/{{booking.StartDate}}">{{booking.Name}}</a>			  
+			  <a ng-switch-default href="/app/trip/{{booking.PackageId}}/{{booking.StartDate}}">{{booking.Name}}</a>
+			</div>						
+			<div class="well hoverwell">
+				<span>{{booking.FirstName}}, {{booking.LastName}}</span><br/>
+				<span>{{booking.StartDate}}, </span><br/>
+				<span>{{booking.CheckInTime}}, </span><br/>
+				<span>{{booking.Nights}}, </span><br/>							
+				<span>{{booking.Status}} </span>
+			</div>
+		  </li>
+		</ul>
+	</div>
+</div>

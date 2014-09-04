@@ -1,0 +1,49 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<form accept-charset="UTF-8" action="https://core.spreedly.com/v1/payment_methods" method="POST">
+			  <fieldset>
+				<input name="redirect_url" type="hidden" value="{{redirectUrl}}" />
+				<input name="environment_key" type="hidden" value="5MJE9cyJDLXygGYWESsg99l69lu" />
+				<input name="utf8" type="hidden" value="✓" />
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="credit_card_first_name">First name</label>
+						<input id="credit_card_first_name" name="credit_card[first_name]" class="form-control"  type="text" />
+					</div>					
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="credit_card_last_name">Last name</label>
+						<input id="credit_card_last_name" name="credit_card[last_name]" class="form-control" type="text" />
+					</div>					
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="credit_card_number">Card Number</label>
+						<input autocomplete="off" id="credit_card_number" name="credit_card[number]" class="form-control" type="text" />
+					</div>
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="credit_card_verification_value">Security Code</label>
+						<input autocomplete="off" id="credit_card_verification_value" name="credit_card[verification_value]" class="form-control" type="text" />
+					</div>
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="credit_card_month">Expires on</label>
+						<input id="credit_card_month" name="credit_card[month]" class="form-control" type="text" />
+					</div>
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<input id="credit_card_year" name="credit_card[year]" class="form-control" type="text" />
+					</div>
+				</div>				
+				<button type='submit' class="btn btn-primary">Submit Payment</button>
+			  </fieldset>
+			</form>	
+		</div>
+	</div>
+</div>		

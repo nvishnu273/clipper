@@ -1,0 +1,148 @@
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ol class="breadcrumb">
+				  <li>{{name}}</li>
+				  <li>{{destination}}</li>
+				  <li class="active">{{package.packagecode}}</li>				  
+				</ol>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-6">
+										<span>Plan for Day {{planday.night}}</span>
+										<!--<rating value="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
+									</div>
+									<div class="col-md-6 text-right">
+										<span class="btn-group"> 
+											<button type="submit" ng-disabled="planDayForm.$invalid" ng-click="savePlanDay(planday, planDayForm)" class="btn btn-primary">Save</button>
+											<button type="button" ng-click="cancelPlanDay()" class="btn btn-default">Cancel</button>
+										</span>
+									</div>
+								</div>
+							</div>						  
+						</h4>			
+					</div>			
+						
+				</div>
+				
+				<div class="panel-body">
+					<div class="row">		
+						<div class="col-md-12">
+							<form name="planDayForm" role="form">	
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="planday-startlocation">Start Location:</label>								
+											<span>{{planday.startlocation.formatted_address}}</span>
+										</div>						
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="package-checkout">Checkout Time:</label>
+											<input id="package-checkout" ng-model="planday.checkout"  class="form-control" type="text" />
+										</div>						
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label for="package-checkin">Check-in Time:</label>
+											<input id="package-checkin" ng-model="planday.checkin"  class="form-control" type="text" />						
+										</div>
+									</div>						
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row">						
+						<div class="col-md-12">
+							<div class="panel panel-success">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										Selected Places To Visit				  
+									</h4>			
+								</div>					
+								<div class="panel-body">
+									<div class="row">
+										<ul class="list-unstyled">
+										  <li ng-repeat="place in planday.visitingplaces" class="thumbnail">				  									
+											<div class="col-md-4">
+												<span>{{place.name}}, {{place.vicinity}}</span> 
+											</div>
+											<div class="col-md-4">
+												<img src="{{place.icon}}" title="{{place.name}}" />     
+											</div>
+											<div class="col-md-4">
+												<rating ng-model="place.rating" max="5" readonly="true"></rating>    
+											</div>
+											<button id="plan-day-{{$index}}" type="submit"
+													ng-click="removeLocationFromPlanDay(place)" class="btn btn-primary">Remove</button>
+										  </li>
+										</ul>
+									</div>							
+								</div>						
+							</div>
+							<span class="btn-group"  ng-show="!isSearching"> 
+								<button type="button" class="btn btn-primary" ng-click="searchNearByPlaces()">Search Places To Visit</button>						
+							</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-info" ng-show="isSearching">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="col-md-6">
+													<span>Nearby Places To Visit</span>
+												</div>	
+												<div class="col-md-offset-5 col-md-1">
+													<span class="btn-group"> 
+														<button type="button" class="btn btn-primary" ng-click="doneSearchNearByPlaces()">Done</button>						
+													</span>
+												</div>										
+											</div>									
+										</div>						  
+									</h4>			
+								</div>					
+								<div class="panel-body">										
+									<ul class="list-unstyled">											
+										<li ng-repeat="place in searchNearByPlacesResult.places" style="padding-top:10px;">
+											<div class="container">
+												<div class="row">																
+													<div class="col-md-8">																													
+														<google-map center="place.map.center" zoom="place.map.zoom"></google-map>
+													</div>
+													<div class="col-md-3">
+														<img src="{{place.icon}}" title="{{place.name}}" /></br>
+														<span>Name:</span><span>{{place.name}}</span></br>     
+														<span>Location:</span><span>{{place.vicinity}}</span></br> 
+														<rating value="place.rating" max="5" readonly="true"></rating></br>
+														<button id="plan-day-{{$index}}" type="submit"
+																ng-click="addLocationToPlanDay(place)" class="btn btn-primary">Add</button>
+													</div>													
+												</div>
+											</div>
+										</li>
+									</ul>						
+								</div>								
+							</div>
+						</div>							
+					</div>					
+				</div>
+			</div>
+		</div>		
+	</div>	
+
+
+

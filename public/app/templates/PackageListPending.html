@@ -1,0 +1,37 @@
+<div class="container-fluid">  
+	<div class="conatiner">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="conatiner">
+					<div class="row">
+						<form name="searchPackageForm">
+							<div class="col-md-8">
+								<input type="text" class="form-control" placeholder="Destination" required ng-model="destination">							
+							</div>
+							<div class="col-md-2">
+								<button id="find-package" type="submit" ng-disabled="searchPackageForm.$invalid" 
+												ng-click="seachPackages(searchPackageForm)" class="btn btn-primary">Find Packages</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" style="margin-top:20px;">
+						<div class="col-md-12">
+							<ul class="list-unstyled">
+							  <li ng-repeat="package in packages" class="thumbnail">	
+								<a href="/app/packages/{{package.destination}}/{{package.packagecode}}">{{package.name}}</a>
+								<div class="well hoverwell">
+									<span>{{package.start | dateFormatter}} - {{package.end | dateFormatter}}</span><br/>
+									<!--<span>{{package.start}} - {{package.end}}</span><br/>-->
+									<span>${{package.cost}}</span><br/>
+									<span>{{package.nights}} nights</span><br/>									
+								</div>
+							  </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

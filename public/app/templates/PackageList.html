@@ -1,0 +1,76 @@
+<div class="container-fluid">  
+	<div>
+		<div class="row">
+			<div class="col-md-1" style="border-right: 1px solid #ddd;height:800px;">
+				<div>
+					<span class="dropdown" on-toggle="toggled(open)">
+					  <a href class="dropdown-toggle">
+						Filter by price
+					  </a>
+					  <ul class="dropdown-menu">
+						<li><a ng-click="filterByCost(1000,2000)">$1000 to $2000</a></li>
+						<li><a ng-click="filterByCost(2000,5000)">$2000 to $5000</a></li>
+						<li><a ng-click="filterByCost(5000,10000)">$5000 to $10000</a></li>
+						<li><a ng-click="filterByCost(10000,10000)">$10000 & above</a></li>
+					  </ul>
+					</span>		
+				</div>
+				<div>
+					<span class="dropdown" on-toggle="toggled(open)">
+					  <a href class="dropdown-toggle">
+						Filter by hotel brand
+					  </a>
+					  <ul class="dropdown-menu">
+						<li><a ng-click="filterByHotelbrand('Sheraton')">Sheraton</a></li>
+						<li><a ng-click="filterByHotelbrand('Marriott')">Marriott</a></li>
+						<li><a ng-click="filterByHotelbrand('Westin')">Westin</a></li>
+						<li><a ng-click="filterByHotelbrand('Other')">Other</a></li>						
+					  </ul>
+					</span>		
+				</div>
+			</div>
+			<div class="col-md-9">
+				<div class="conatiner-fluid">
+					<div class="row">
+						<form name="searchPackageForm">
+							<div class="col-md-8">
+								<input type="text" class="form-control" placeholder="Destination" required ng-model="destination">							
+							</div>
+							<div class="col-md-2">
+								<button id="find-package" type="submit" ng-disabled="searchPackageForm.$invalid" 
+												ng-click="seachPackages(searchPackageForm)" class="btn btn-primary">Find Packages</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" style="margin-top:20px;">
+						<div class="col-md-12">
+							<ul class="list-unstyled">
+							  <li ng-repeat="package in packages" class="thumbnail">	
+								<a href="/app/packages/{{package.destination}}/{{package.packagecode}}">{{package.name}}</a>
+								<div class="well hoverwell">
+									<span>{{package.start | dateFormatter}} - {{package.end | dateFormatter}}</span><br/>
+									<!--<span>{{package.start}} - {{package.end}}</span><br/>-->
+									<span>${{package.cost}}</span><br/>
+									<span>{{package.nights}} nights</span><br/>
+									<rating value="package.rating" max="5" readonly="true"></rating>
+									<a class="btn collapse-data-btn" data-toggle="collapse" ng-click="seeReview(package)" ng-href="/{{$location.path()}}/#review-{{getReviewId(package.destination,package.packagecode)}}">See Review</a>				
+									<div id="review-{{getReviewId(package.destination,package.packagecode)}}" class="collapse">					
+										<ul class="list-unstyled">						
+											<li ng-repeat="review in package.reviews">
+												<strong>{{review.Address}}</strong>, <i>{{review.Comment}}</i>, <strong>{{review.ReviewBy}}</strong>, <strong>{{review.ReviewDate}}</strong>														
+												<rating value="review.Rating" max="5" readonly="true"></rating>
+											</li>
+										</ul>									  
+									</div>				
+									<button ng-show="isCustomer()" id="select-package" type="submit" ng-click="createBooking(package)" class="btn btn-primary">Create Booking</button>
+								</div>
+							  </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

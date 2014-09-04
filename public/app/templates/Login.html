@@ -1,0 +1,40 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<form name="loginForm" class="form-signin" role="form"  ng-submit="login(credentials)" novalidate>
+				<h2 class="form-signin-heading">Signing in as {{credentials.userTypeName}}</h2>
+				<div style="padding-top:20px;">
+					<input type="text" class="form-control" placeholder="User Name" required autofocus ng-model="credentials.username">
+				</div>
+				<div style="padding-top:15px;">
+					<input type="password" class="form-control" placeholder="Password" required ng-model="credentials.password">
+				</div>
+				<div style="padding-top:10px;">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2">
+							<div style="padding-top:5px;">					
+								<span id="usertype" class="dropdown">					
+									<a class="dropdown-toggle" data-toggle="dropdown">User Type<b class="caret"></b></a>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+										<li ng-repeat="userType in userTypes">
+											<a ng-click="onUserTypeSelected(userType)">{{userType.name}}</a>
+										</li>			
+									</ul>
+								</span>
+							</div>	
+						</div>
+						<div class="col-md-3">
+							<div style="padding-top:5px;">					
+								<a href="register">Create Account</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+  
+</div>

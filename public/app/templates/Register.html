@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<form name="registerUserForm" class="form-signin" role="form"  ng-submit="registerNewCustomer(customer)" novalidate>				
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="user-email">Email</label>
+						<input id="user-email" ng-model="customer.email" class="form-control" required type="email" />
+					</div>					
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="user-password">Password</label>
+						<input id="user-password" ng-model="customer.password" class="form-control" required type="password" />
+					</div>					
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="user-firstname">First Name</label>
+						<input id="user-firstname" ng-model="customer.firstname" class="form-control" required type="text" />
+					</div>					
+				</div>
+				<div style="padding-top:20px;">
+					<div class="form-group">
+						<label for="user-lastname">Last Name</label>
+						<input id="user-lastname" ng-model="customer.lastname" class="form-control" required type="text" />
+					</div>					
+				</div>
+				<div style="padding-top:10px;">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+				</div>
+			  </form>
+		</div>
+	</div>
+</div>
+

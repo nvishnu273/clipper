@@ -1,0 +1,100 @@
+<div>
+	<div class="container">
+		<h1>{{package.name}}</h1>
+		<hr />
+		<div class="container">  
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Destination:</span><span>{{package.destination}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Airport:</span><span>{{package.airport}}</span>      
+				</div>		  		 				
+			</div> 
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Hotel:</span><span>{{package.checkInHotel}}, {{package.checkInHotelAddress}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Number of days:</span><span>{{package.nights}}, {{package.start | dateFormatter}} - {{package.end | dateFormatter}}</span>      
+				</div>				
+			</div>
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Cost:</span><span>{{package.cost}}</span> 
+					<button type="submit" ng-show="isManager()" ng-click="editPackage()" class="btn btn-primary">Edit</button>
+					<button type="submit" ng-show="isManager() && isPending()" ng-click="publishPackage()" class="btn btn-danger" style="padding-right:20px;">Publish</button>
+				</div>				
+			</div>
+		</div>
+		<br/>		
+		<div class="container">  
+			<div class="well"> 
+			  <div class="row">
+				<ul class="list-unstyled">
+				  <li ng-repeat="plannedDay in package.packageplan" class="thumbnail">	
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<span class="label label-primary">Day {{plannedDay.night}}</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<span>Start Location:</span><span>{{plannedDay.startlocation.formatted_address}}</span> 
+							</div>
+							<div class="col-md-3">
+								<span>Check out time:</span><span>{{plannedDay.checkout}}</span>      
+							</div>
+							<div class="col-md-3">
+								<span>Check in time:</span><span>{{plannedDay.checkin}}</span>      
+							</div>
+							<div class="col-md-3">
+								<button id="plan-day-{{plannedDay.night}}" type="submit"
+										ng-show="isManager()" ng-click="manageDayPlan(plannedDay.night)" class="btn btn-primary">Manage Plan</button>
+							</div>							
+						</div>
+
+						<div class="row">
+							<div class="col-md-11">
+								<div class="panel panel-success">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="col-md-6">
+														<span>Selected Places To Visit
+													</div>										
+												</div>
+											</div>						  
+										</h4>			
+									</div>					
+									<div class="panel-body">
+										<div class="row">		
+											
+											<ul class="list-unstyled">
+											  <li ng-repeat="place in plannedDay.visitingplaces" class="thumbnail">	
+												<div class="row">
+													<div class="col-md-6">
+														<span>{{place.name}}, {{place.vicinity}}</span> 
+													</div>											
+													<div class="col-md-6">
+														<rating value="place.rating" max="5" readonly="true"></rating>    
+													</div>
+												</div>
+											  </li>
+											</ul>
+											
+										</div>
+									</div>						
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				  </li>
+				</ul>
+			</div>
+		</div>
+	<div>
+</div>

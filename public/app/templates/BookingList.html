@@ -1,0 +1,45 @@
+<div class="container">  
+	<div class="well"> 
+	  <div class="row">
+		<form name="searchBookingForm" role="form">
+			<div class="form-group">
+			  <div class="col-md-4">
+				<input type="text" class="form-control" placeholder="Destination" ng-model="destination">      
+			  </div>
+			  <div class="col-md-2">
+					<p class="input-group">
+					  <input type="text" class="form-control" required placeholder="Start Date" datepicker-popup="yyyy/MM/dd" ng-model="startDate">	
+					</p>
+			  </div>
+			  <div class="col-md-2">			
+					<p class="input-group">
+					  <input type="text" class="form-control" required placeholder="End Date" datepicker-popup="yyyy/MM/dd" ng-model="endDate">	
+					</p>				
+			  </div>		  		 
+			  <div class="col-md-2">
+				<div class="btn-group">
+				  <button id="find-package" type="button" ng-disabled="searchBookingForm.$invalid" class="btn btn-primary" ng-click="seachBookings()">Find Bookings</button>		  
+				</div>			
+			  </div>			  
+			</div>
+		</form>
+	  </div>
+	  
+	</div> 	
+</div>
+<div class="container">  
+	<div class="well"> 
+	  <div class="row">
+		<ul class="list-unstyled">
+		  <li ng-repeat="booking in bookings" class="thumbnail">		
+			<a href="/app/booking/{{booking.CustomerId}}/{{booking.CustomerPackageId}}/{{booking.StartDate}}">{{booking.Name}}</a>			
+			<div class="well hoverwell">
+				<span>{{booking.FirstName}}, {{booking.LastName}}</span>
+				<span>{{booking.StartDate}}</span>
+				<span>{{booking.CheckInTime}}</span>
+				<span>{{booking.Nights}}</span>							
+			</div>
+		  </li>
+		</ul>
+	</div>
+</div>

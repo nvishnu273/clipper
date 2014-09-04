@@ -1,0 +1,106 @@
+<div>
+	<div class="container">
+		<h1>{{booking.package.name}}</h1>
+		<hr />
+		<div class="container">  
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Customer:</span><span>{{booking.customer.FirstName}} {{booking.customer.LastName}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Email:</span><span>{{booking.customer.Email}}</span>      
+				</div>		  		 				
+			</div> 			
+		</div>	
+		<div class="container">  
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Destination:</span><span>{{booking.package.destination}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Airport:</span><span>{{booking.package.airport}}</span>      
+				</div>		  		 				
+			</div> 
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Hotel:</span><span>{{booking.package.checkInHotel}}, {{booking.package.checkInHotelAddress}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Number of days:</span><span>{{booking.package.nights}}, {{booking.customer.StartDate}} - {{booking.customer.EndDate}}</span>      
+				</div>				
+			</div>
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Cost:</span><span>{{booking.package.cost}}</span> 
+				</div>							
+			</div>
+			<div>
+				<!--
+				<span ng-show="booking.customer.AssignedTo != ''">Assigned To: {{booking.customer.AssignedTo.FirstName}} {{booking.customer.AssignedTo.LastName}}</span>
+				-->
+				<span ng-show="booking.customer.AssignedTo">Assigned To: {{booking.customer.AssignedTo}}</span>
+				<button ng-show="showAssignAgent()" type="submit" ng-click="assignGuide(2)" class="btn btn-primary" ng-cloak>Assign Agent</button>				
+				
+			</div>
+		</div>		
+		<div class="container">  
+			<div class="well"> 
+			  <div class="row">
+			  
+				<ul class="list-unstyled">
+				  <li ng-repeat="plannedDay in booking.package.packageplan" class="thumbnail">
+						<div class="row">
+							<div class="col-md-12">
+								<span class="label label-primary">Day {{plannedDay.night}}</span>
+							</div>
+						</div>
+						<div class="row">
+							
+							<div class="col-md-4">
+								<span>Start Location:</span><span>{{plannedDay.startlocation.formatted_address}}</span> 
+							</div>
+							<div class="col-md-4">
+								<span>Check out time:</span><span>{{plannedDay.checkout}}</span>      
+							</div>
+							<div class="col-md-4">
+								<span>Check in time:</span><span>{{plannedDay.checkin}}</span>      
+							</div>		
+						</div>
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<span>Selected Places To Visit
+											</div>										
+										</div>
+									</div>						  
+								</h4>			
+							</div>					
+							<div class="panel-body">
+								<div class="row">		
+									
+									<ul class="list-unstyled">
+									  <li ng-repeat="place in plannedDay.visitingplaces" class="thumbnail">	
+										<div class="row">
+											<div class="col-md-6">
+												<span>{{place.name}}, {{place.vicinity}}</span> 
+											</div>											
+											<div class="col-md-6">
+												<rating value="place.rating" max="5" readonly="true"></rating>    
+											</div>
+										</div>
+									  </li>
+									</ul>
+									
+								</div>
+							</div>						
+						</div>
+				  </li>
+
+				</ul>
+			</div>
+		</div>
+	<div>
+</div>

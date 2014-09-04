@@ -1,0 +1,100 @@
+<div class="container">
+	<div class="container">
+		<div class="row">
+			<div class="page-header">
+				<h1>Account Settings</h1>
+			</div>
+		</div>		
+	</div>
+	<div class="panel panel-default">
+		
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<span>Personal Information</span>
+						</div>						
+					</div>
+				</div>						  
+			</h4>			
+		</div>
+		
+		<div class="panel-body">
+			<div class="container">					
+				<form name="editPackageForm" role="form">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="customer-fn">First Name</label>
+								<span>{{customer.firstname}}</span>								
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="customer-ln">Last Name</label>
+								<span>{{customer.lastname}}</span>								
+							</div>						
+						</div>											
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="customer-email">Email</label><br/>
+								<span>{{customer.email}}</span>								
+							</div>						
+						</div>															
+					</div>															
+				</form>			
+			</div>
+		</div>					
+	</div>
+	
+	<div class="panel panel-default">		
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<span>Payment Information</span>
+						</div>						
+					</div>
+				</div>						  
+			</h4>			
+		</div>
+		<div class="panel-body">
+			<div class="container">					
+				<form name="editCreditCardForm" role="form">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="customer-fn">Mode</label>
+								<span>Credit Card</span>								
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="customer-ln">Card Type</label>
+								<span>{{customer.lastfourcc}}</span>								
+							</div>						
+						</div>											
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="customer-email">Number</label><br/>
+								<span>{{customer.cardtype}}</span>								
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">									
+								<button type="submit" ng-click="editCC()" class="btn btn-primary">Edit</button>
+							</div>						
+						</div>											
+					</div>															
+				</form>			
+			</div>
+		</div>		
+	</div>
+	
+<div>

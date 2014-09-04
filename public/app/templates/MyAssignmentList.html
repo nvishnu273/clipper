@@ -1,0 +1,20 @@
+<div class="container">  
+	<div class="well"> 
+	  <div class="row">
+		<ul class="list-unstyled">
+		  <li ng-repeat="booking in bookings" class="thumbnail">		
+			<a href="/booking/{{booking.CustomerId}}/{{booking.PackageId}}/{{booking.StartDate}}">{{booking.Name}}</a>			
+			<div class="well hoverwell">
+				<span>{{booking.FirstName}}, {{booking.LastName}}</span>
+				<span>{{booking.StartDate}}</span>
+				<span>{{booking.Nights}}</span>
+				<span>Check In time: </span><strong>{{booking.CheckInTime}}</strong><br/>
+				<span>Check In hotel: </span><strong>{{booking.CheckInHotel}}, {{booking.CheckInHotelAddress}}</strong>
+			</div>
+			<div>				
+				<button ng-show="booking.Status == 'PendingCheckin'" type="submit" ng-click="checkInCustomer(booking)" class="btn btn-primary">Check In</button>				
+			</div>
+		  </li>
+		</ul>
+	</div>
+</div>

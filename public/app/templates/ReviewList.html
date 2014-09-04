@@ -1,0 +1,34 @@
+<div class="container-fluid">  
+	<div>
+		<div class="row">			
+			<div class="col-md-9">
+				<div class="conatiner-fluid">
+					<div class="row">
+						<form name="searchReviewForm">
+							<div class="col-md-8">
+								<input type="text" class="form-control" placeholder="Address" required ng-model="address">	
+								<input type="checkbox" ng-model="radial"> Search nearby Locations
+							</div>
+							<div class="col-md-2">
+								<button id="find-review" type="submit" ng-disabled="searchReviewForm.$invalid" 
+												ng-click="seachReview(searchReviewForm)" class="btn btn-primary">Find Reviews</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row" style="margin-top:20px;">
+						<div class="col-md-12">
+							<ul class="list-unstyled">
+							  <li ng-repeat="review in reviews">
+								<strong>{{review.Address}}</strong>, <i>{{review.Comment}}</i>, <strong>{{review.ReviewBy}}</strong>, <strong>{{review.ReviewDate}}</strong>														
+								<rating value="review.Rating" max="5" readonly="true"></rating>
+								<a href="/packages/{{review.Destination}}/{{review.PackageCode}}">View Package</a>
+							  </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

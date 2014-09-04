@@ -1,0 +1,106 @@
+<div class="container">
+	<div class="container">
+		<div class="row">
+			<div class="page-header">
+				<h1>Edit Package</h1>
+			</div>
+		</div>		
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<span>{{package.packagecode}}</span>
+						</div>
+						<div class="col-md-6 text-right">
+							<span class="btn-group"> 
+								<button type="submit" ng-disabled="editPackageForm.$invalid" ng-click="savePackage(editPackageForm)" class="btn btn-primary">Save</button>								
+								<button type="button" ng-click="cancelPackage()" class="btn btn-default">Cancel</button>
+							</span>
+						</div>
+					</div>
+				</div>						  
+			</h4>			
+		</div>
+		
+		<div class="panel-body">
+			<div class="container">					
+				<form name="editPackageForm" role="form">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="package-destination">Destination</label>
+								<span>{{package.destination}}</span>								
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="package-airport">Flying To</label>
+								<span>{{package.airport}}</span>								
+							</div>						
+						</div>											
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="package-start-date">Start Date</label><br/>
+								<span>{{package.start | dateFormatter}}</span>
+								<!--<input type="text" id="package-start-date" class="form-control" required placeholder="yyyy/mm/dd" ng-model="package.start" />-->
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="package-end-date">End Date</label><br/>
+								<span>{{package.end | dateFormatter}}</span>
+								<!--<input type="text" id="package-end-date" class="form-control" required placeholder="yyyy/mm/dd" ng-model="package.end" />-->
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="package-days">Number Of Days</label>
+								<br/>
+								<span>{{package.nights}}</span>
+								<!--<input id="package-days" ng-model="package.nights" class="form-control" required type="text" />-->
+							</div>						
+						</div>						
+					</div>										
+					<div class="row">						
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="package-hotel">Hotel</label>
+								<br/>
+								<span>{{package.checkInHotelAddress}}</span>
+								<!--<input type="text" id="package-hotel" class="form-control" required ng-model="package.checkInHotelAddress" />-->
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="package-days">Check-In</label>
+								<span>{{package.checkInTime}}</span>
+								<!--<input id="package-days" ng-model="package.checkInTime" class="form-control" required type="text" />-->
+							</div>						
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="package-cost">Cost</label>
+								<input id="package-cost" ng-model="package.cost" class="form-control" required type="text" placeholder="Enter Cost..." />				
+							</div>
+						</div>
+					</div>
+					<div class="row">						
+						<div class="col-md-11">
+							<div class="form-group">
+								<label for="package-destination">Description</label>
+								<input id="package-destination" ng-model="package.name" class="form-control" required type="text" />
+							</div>						
+						</div>
+					</div>
+				</form>			
+			</div>
+		</div>
+		
+	</div>
+	
+<div>

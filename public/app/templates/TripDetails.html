@@ -1,0 +1,120 @@
+<div>
+	<div class="container">
+		<h1>{{trip.package.name}}</h1>
+		<hr />
+		<div class="container">  
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Customer:</span><span>{{trip.customer.FirstName}} {{trip.customer.LastName}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Email:</span><span>{{trip.customer.Email}}</span>      
+				</div>		  		 				
+			</div> 			
+		</div>	
+		<div class="container">  
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Destination:</span><span>{{trip.package.destination}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Airport:</span><span>{{trip.package.airport}}</span>      
+				</div>		  		 				
+			</div> 
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Hotel:</span><span>{{trip.package.checkInHotel}}, {{trip.package.checkInHotelAddress}}</span> 
+				</div>
+				<div class="col-md-4">
+					<span>Number of days:</span><span>{{trip.package.nights}}, {{trip.customer.StartDate}} - {{trip.customer.EndDate}}</span>      
+				</div>				
+			</div>
+			<div class="row">				
+				<div class="col-md-4">
+					<span>Cost:</span><span>{{trip.package.cost}}</span> 
+				</div>							
+			</div>
+			<div>
+				<span>Assigned Agent: {{trip.customer.AssignedTo.FirstName}} {{trip.customer.AssignedTo.LastName}}</span>						
+			</div>
+		</div>		
+		<div class="container">  
+			<div class="well"> 
+			  <div class="row">
+				<ul class="list-unstyled">
+				  <li ng-repeat="plannedDay in trip.package.packageplan" class="thumbnail">				  
+					<span class="label label-primary">Day {{plannedDay.night}}</span>
+					<div class="col-md-4">
+						<span>Start Location:</span><span>{{plannedDay.startlocation.formatted_address}}</span> 
+					</div>
+					<div class="col-md-4">
+						<span>Check out time:</span><span>{{plannedDay.checkout}}</span>      
+					</div>
+					<div class="col-md-4">
+						<span>Check in time:</span><span>{{plannedDay.checkin}}</span>      
+					</div>					
+						<div class="panel panel-success">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-6">
+												<span>My Destinations for the Day
+											</div>										
+										</div>
+									</div>						  
+								</h4>			
+							</div>					
+							<div class="panel-body">
+								<div class="row">
+									<ul class="list-unstyled">
+									  <li ng-repeat="place in plannedDay.visitingplaces" class="thumbnail">				  									
+										<div class="col-md-4">
+											<span>{{place.name}}, {{place.vicinity}}</span> 											
+											<div class = "thumbnail">											  
+											  <div class="caption">												
+												<ul class="list-unstyled">
+													<li ng-repeat="photo in place.Photos">
+														<img src="{{photo.photoUrl}}" alt="{{photo.photoName}}" title="{{photo.photoName}}" style="width: 150px; height: 150px;">														
+														</br>
+														Uploaded on {{photo.photoUploadDt}}
+													</li>
+												</ul>
+												<ul class="list-unstyled">
+													<li ng-repeat="review in place.Reviews">
+														<i>{{review.Comment}}</i>, <strong>{{review.ReviewBy}}</strong>, <strong>{{review.ReviewDate}}</strong>														
+														<rating value="review.Rating" max="5" readonly="true"></rating>
+													</li>
+												</ul>
+												<div>
+													<div class="btn-group" data-toggle="buttons-checkbox">														
+														<a class="btn collapse-data-btn" data-toggle="collapse" ng-href="/{{$location.path()}}/#photo-{{place.id}}">Upload Photo</a>
+														<a class="btn collapse-data-btn" data-toggle="collapse" ng-href="/{{$location.path()}}/#review-{{place.id}}">Add Review</a>
+													</div>
+													<div id="photo-{{place.id}}" class="collapse">
+														<input type="file" ng-file-select="onFileSelect(place,$files)" >														
+														<div ng-file-drop="onFileSelect(place,$files)" ng-file-drag-over-class="optional-css-class"
+															ng-show="dropSupported">drop files here</div>														
+													</div>
+													<div id="review-{{place.id}}" class="collapse">
+														<label for="review-{{place.id}}-add">Review</label>
+														<input type="textarea" class="form-control" ng-model="$parent.comment" id="review-{{place.id}}-add" placeholder="add review...">
+														<button id="review-{{place.id}}-add-btn" type="submit" ng-click="addTripReview(place,$parent)" 
+															class="btn btn-primary">Add</button>										  
+													</div>
+												</div>
+											  </div>
+											</div>
+										</div>																		
+									  </li>
+									</ul>
+								</div>							
+							</div>						
+						</div>
+				  </li>
+
+				</ul>
+			</div>
+		</div>
+	<div>
+</div>
