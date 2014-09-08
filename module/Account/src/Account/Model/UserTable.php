@@ -45,6 +45,18 @@ class UserTable implements ServiceLocatorAwareInterface
 		return $row;
 	}
 
+	public function fetchUser($id)
+	{
+		
+		$id  = (int) $id;
+		$rowset = $this->tableGateway->select(array('Id' => $id));
+		$row = $rowset->current();
+		if (!$row) {
+		    throw new \Exception("Could not find row $id");
+		}
+		return $row;
+	}
+
 	public function login($userType,$username,$password)
 	{		
 		

@@ -88,7 +88,6 @@ class CustomerTable implements ServiceLocatorAwareInterface
     	$parameters = array(
 		    'email' => $email
 		);
-
 		$results = $statement->execute($parameters);
 
 		$row = $results->current();
