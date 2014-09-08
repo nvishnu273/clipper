@@ -24,6 +24,15 @@
 			overflow: visible;
 		}
 		
+		[ng-cloak].splash {
+		    display: block !important;
+		}
+		[ng-cloak] {
+		    display: none;
+		}
+		.splash {
+		    background-color: #428bca;
+		}
 		/*
 		.modal {
 			display: block;			
@@ -37,8 +46,8 @@
 	</style>
 </head>
 <body ng-cloak ng-controller="ApplicationController">	
-	<!-- customer menu -->
-	<nav class="navbar navbar-default" role="navigation" ng-controller="MenuController" ng-show="$parent.currentUser.userType == 0 ">
+	<!-- customer menu -->	
+	<nav class="navbar navbar-default" role="navigation" ng-controller="MenuController" ng-show="$parent.currentUser.userType == 0">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -79,9 +88,9 @@
 				</div>	
 			</div>
 		</div>		
-	</nav>
+	</nav>	
 	<!-- agent menu -->
-	<nav class="navbar navbar-default" role="navigation" ng-controller="MenuController" ng-show="$parent.currentUser.userType == 1 ">
+	<nav class="navbar navbar-default" role="navigation" ng-controller="MenuController" ng-show="$parent.currentUser.userType == 1">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">

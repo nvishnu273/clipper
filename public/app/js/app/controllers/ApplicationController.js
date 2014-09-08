@@ -13,9 +13,7 @@ travelManagerApp.controller('ApplicationController', function ($scope,$location,
 		console.log('Login was not successful');
 		$location.path("/login");
 	});
-  $scope.$on(AUTH_EVENTS.loginSuccess, function($) {	
-		console.log('Login was successful');
-		console.log(Session.userType);	
+  $scope.$on(AUTH_EVENTS.loginSuccess, function($) {			
 		if (Session.userType == 0){
 			$location.path("/mybookings");
 		}
