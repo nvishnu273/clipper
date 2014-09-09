@@ -77,7 +77,8 @@ class TripController extends AbstractRestfulController
 			$photoInfos=[];
 			foreach($photos as $photoKey=>$photoValue){
 				if ($locationValue==$photoValue["Location"]) {		
-					$photoUrl=$this->getTripPhotoTable()->fetch($photoKey);
+					//$photoUrl=$this->getTripPhotoTable()->fetch($photoKey);
+					$photoUrl=$this->getTripPhotoTable()->fetchPreSigned($photoKey);
 					$photo=$this->getTripPhotoTable()->fetchPhotoObject($photoKey);
 					//echo($photo);
 					$photoInfos[]=array(

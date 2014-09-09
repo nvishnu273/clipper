@@ -207,6 +207,11 @@ class PackageController extends AbstractRestfulController
 				'StartDate' => $value->StartDate
 			);
 		}
+
+		if (!isset($customerPackageKeys)) {
+			return new JsonModel([]);	
+		}
+		
 		$packages=$this->getTravelPackageInstanceTable()->getCustomerPackagesBulk($customerPackageKeys);
 	
 		/* Get a list of locations */ 

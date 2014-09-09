@@ -27,7 +27,8 @@ namespace Trip\Model;
 
 		public function fetch($photoId)
 		{			
-			$photo = $this->s3TripPhotoTableGateway->getPhotoPlainUrl($photoId);						
+			//$photo = $this->s3TripPhotoTableGateway->getPhotoPlainUrl($photoId);						
+			$photo = $this->s3TripPhotoTableGateway->getPhotoPreSignedUrl($photoId);						
 			if (!$photo) {
 			 throw new \Exception("Could not find photo $photoId");
 			}
@@ -36,7 +37,7 @@ namespace Trip\Model;
 
 		public function fetchPreSigned($photoId)
 		{			
-			$photo = $this->s3TripPhotoTableGateway->getPhotoPreSignedUrl($packageId);						
+			$photo = $this->s3TripPhotoTableGateway->getPhotoPreSignedUrl($photoId);						
 			
 			return $photo;
 		}

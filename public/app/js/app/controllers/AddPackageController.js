@@ -1,7 +1,7 @@
 'use strict';
 
 travelManagerApp.controller('AddPackageController',
-	function AddPackageController($scope, packageCatalogService, googleApiService, $location,growl){
+	function AddPackageController($scope, packageCatalogService, googleApiService, $location, growl, Session){
 		
 		$scope.code="2014-SUMMER";
 		$scope.customcode="";
@@ -10,11 +10,10 @@ travelManagerApp.controller('AddPackageController',
 		var readHotelSource = new kendo.data.DataSource({
 			serverFiltering: true,	
 			transport: {
-				read:'http://54.209.199.253/auto-complete.php',				
+				read:'/autocomplete/hotel',				
 				parameterMap: function (data,action) {				
-					return {
-						type: 'hotel',
-						name: data.filter.filters[0].value
+					return {						
+						text: data.filter.filters[0].value						
 					};
 				}			   
 			}
@@ -25,11 +24,10 @@ travelManagerApp.controller('AddPackageController',
 		var readAirportCodeSource = new kendo.data.DataSource({
 			serverFiltering: true,			
 			transport: {
-				read:'http://54.209.199.253/auto-complete.php',				
+				read:'/autocomplete/city',					
 				parameterMap: function (options) {
-					return {
-						type: 'airport',
-						name: options.filter.filters[0].value 
+					return {						
+						text: options.filter.filters[0].value		
 					};
 				}			   
 			}

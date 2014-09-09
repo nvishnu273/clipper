@@ -26,25 +26,27 @@ class ApiAuthenticationListener
         $controller = $e->getRouteMatch()->getParam('controller');
         $action = $e->getRouteMatch()->getParam('action');
 
-        if($controller != 'Account\Controller\Account' && $action != 'login')
-        {
+        if (
+            ($controller == 'Account\Controller\Account' && $action == 'login') || 
+            ($controller == 'ExternalApi\Controller\ExternalApi')
+            ) {
+            return;
+        }
+ 
+        $result = $this->adapter->authenticate();  
 
-            
-            $result = $this->adapter->authenticate();  
+        if (!$result->isValid()) {
+            $response = $e->getResponse();
 
-            if (!$result->isValid()) {
-                $response = $e->getResponse();
+            // Set some response content
+            $response->setStatusCode(401);
+            return $response;
+        }
 
-                // Set some response content
-                $response->setStatusCode(401);
-                return $response;
-            }
-
-            // Set Identity
-            /*
-            $event->setParam('user', $result->getIdentity());
-            */   
-        }   
+        // Set Identity
+        /*
+        $event->setParam('user', $result->getIdentity());
+        */    
 
                 
        

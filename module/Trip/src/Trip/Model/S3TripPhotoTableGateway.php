@@ -15,7 +15,8 @@ class S3TripPhotoTableGateway
 {
 	protected $bucketName;
 	protected $s3client;
-	
+	protected $prefix = 'photo';
+
 	public function __construct($bucketName,$s3client)
 	{				
 		$this->bucketName = $bucketName;
@@ -27,36 +28,39 @@ class S3TripPhotoTableGateway
 		$fileId=Utility::getGUID();
 		$ext = pathinfo($photoname, PATHINFO_EXTENSION);
 		$fileName=$fileId . "." . $ext;
+		$key = $this->prefix . '/' . $fileName;
 		
 		$result = $this->s3client->putObject(array(
 			'Bucket' => $this->bucketName,
-			'Key'    => $fileName,
+			'Key'    => $key,
 			'Body'   => fopen($pathToFile, 'r+'),
 			'Metadata' => array(
 				'LocationName' => $locationName,
 				'PhotoName' => $photoname,
 				'PackageId' => $packageId
-			), 
-			'ACL'        => 'public-read'
+			),			
 		));
 				
 		return $fileName;
 	}
 	
-	public function getPhotoPlainUrl($photoId){		
-		$plainUrl = $this->s3client->getObjectUrl($this->bucketName, $photoId);
+	public function getPhotoPlainUrl($photoId){	
+		$key = $this->prefix . '/' . $photoId;
+		$plainUrl = $this->s3client->getObjectUrl($this->bucketName, $key);
 		return $plainUrl;
 	}	
 	
-	public function getPhotoPreSignedUrl($photoId){		
-		$signedUrl = $this->s3client->getObjectUrl($this->bucketName, $photoId, '+10 minutes');		
+	public function getPhotoPreSignedUrl($photoId){
+		$key = $this->prefix . '/' . $photoId;		
+		$signedUrl = $this->s3client->getObjectUrl($this->bucketName, $key, '+10 minutes');			
 		return $signedUrl;
 	}	
 	
 	public function getPhoto($photoId){		
+		$key = $this->prefix . '/' . $photoId;		
 		$result = $this->s3client->getObject(array(
 			'Bucket' => $this->bucketName,
-			'Key'    => $photoId
+			'Key'    => $key
 		));
 		return $result;
 	}		

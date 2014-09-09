@@ -58,7 +58,11 @@ class ExternalApiController extends AbstractRestfulController
 		$ltlngparts = explode(',',$allGetValues['val']);
 		
 		$places=Utility::GetNearbyPlaces2($ltlngparts[0],$ltlngparts[1]);
-		$nextPageToken=$places['next_page_token'];
+		$nextPageToken = null;
+		if (isset($places['next_page_token'])){
+			$nextPageToken=$places['next_page_token'];
+		}
+		
 		
 		$pageResult=array('nextPageToken'=>$nextPageToken,'places'=>[]);
 		$nearbyLocations=[];
