@@ -108,9 +108,12 @@ class SearchController extends AbstractRestfulController
 	public function dateAction()
 	{
 		$allGetValues = $this->params()->fromQuery();	
-
+		$destination = '';
+		if ($allGetValues['destination']){
+			$destination = $allGetValues['destination'];
+		}
 		$customerPackages = $this->getCustomerPackageTable()->fetchAllByDateRange($allGetValues['start'],
-		        	$allGetValues['end'],$allGetValues['status']);
+		        	$allGetValues['end'],$allGetValues['status'],$destination);
 
 		//Refer to the array
 		foreach($customerPackages as &$customerPackage){

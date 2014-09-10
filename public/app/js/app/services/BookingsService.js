@@ -25,9 +25,10 @@ travelManagerApp.factory('bookingsService',
 					return deferered.promise;
 				},
 				
-				getBookings : function(start, end) {
+				getBookings : function(start, end, destination) {
 					var deferered = $q.defer();
-					$http({method: 'GET', url:'/booking/all/search/date?start='+start+'&end='+end+'&status=' + 'PendingCheckin'})
+					$http({method: 'GET', url:'/booking/all/search/date?start='+start+'&end='+end+'&status=' + 'PendingCheckin'
+							+'&destination=' + destination})
 						.success(function(data,status,headers,config) {							
 							deferered.resolve(data);
 						}).error(function(data,status,headers,config) {

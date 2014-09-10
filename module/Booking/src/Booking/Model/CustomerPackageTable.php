@@ -257,7 +257,7 @@ class CustomerPackageTable implements ServiceLocatorAwareInterface
 		return $packages;
 	}
 
-	public function fetchAllByDateRange($start,$end,$status)
+	public function fetchAllByDateRange($start,$end,$status,$destination)
 	{			
 		$sm = $this->getServiceLocator();
 		$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter'); 
@@ -270,15 +270,24 @@ class CustomerPackageTable implements ServiceLocatorAwareInterface
 				from TravelAppUser.CustomerPackage a 
 				join TravelAppUser.Customer b on a.CustomerId=b.Id 
 				left join TravelAppUser.User c on a.AssignedTo=c.Id 
-				where a.StartDate between " . $fp($start) . " and " . $fp($end) . " and a.status=" . $fp($status);
-
-    	$statement = $dbAdapter->query($sql);
-
-    	$parameters = array(
+				where a.StartDate between " . $fp($start) . " and " . $fp($end) . " and a.status=" . 
+				$fp($status);
+		
+		$parameters = array(
     		'Start' => $start,
 		    'End' => $end,
 		    'Status' => $status,
+		    
 		);
+
+		if ($destination != '') {
+			
+			$destination = $destination . '%';
+			$sql = $sql . " and a.CustomerPackageId like " . $fp($destination);
+			$parameters['CustomerPackageId'] = $destination;
+		}    	
+
+    	$statement = $dbAdapter->query($sql);
 
 		$resultSet = $statement->execute($parameters);
 		
