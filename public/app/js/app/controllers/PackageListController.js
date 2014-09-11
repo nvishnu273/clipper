@@ -8,6 +8,7 @@ travelManagerApp.controller('PackageListController',
 		$scope.minCost=1000;
 		$scope.maxCost=20000;
 		
+		
 		$scope.seachPackages = function(searchPackageForm){				
 			if (searchPackageForm.$valid) {
 				packageCatalogService.searchByDestination($scope.destination,$scope.nights,$scope.minCost,$scope.maxCost).then(function(data) {		

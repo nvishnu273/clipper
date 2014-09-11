@@ -33,13 +33,13 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-hotel">Hotel</label><br/>
-									<input style="width:300px!important;" type="text" id="package-hotel" ng-model="package.checkInHotel" k-min-length="3" kendo-auto-complete k-data-source="hotelDs" class="form-control" required/>								
+									<input style="width:300px!important;" type="text" id="package-hotel" ng-model="package.checkInHotel" k-min-length="3" kendo-auto-complete k-data-source="hotelDs" required/>								
 								</div>						
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-airport">Flying To</label><br/>
-									<input style="width:300px!important;" id="package-airport" k-min-length="3" kendo-auto-complete ng-model="package.airport" k-data-source="airportIataCodeDs" class="form-control" required />
+									<input style="width:300px!important;" id="package-airport" k-min-length="3" kendo-auto-complete ng-model="package.airport" k-data-source="airportIataCodeDs" required />
 								</div>						
 							</div>						
 						</div>	
@@ -49,19 +49,20 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-start-date">Start Date</label>
-									<input style="width:300px!important;" type="text" id="package-start-date" class="form-control" required placeholder="yyyy/mm/dd" ng-model="package.start" />
+									<input style="width:300px!important;" type="text" id="package-start-date" required placeholder="yyyy/mm/dd"  kendo-date-picker k-options="datePickerConfig" k-ng-model="package.start" />
 								</div>						
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-end-date">End Date</label>
-									<input style="width:300px!important;" type="text" id="package-end-date" class="form-control" required placeholder="yyyy/mm/dd" ng-model="package.end" />
+									<input style="width:300px!important;" type="text" id="package-end-date" required placeholder="yyyy/mm/dd" kendo-date-picker k-options="datePickerConfig" ng-model="package.end" />
 								</div>						
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-days">Number Of Days</label>
-									<input style="width:300px!important;" id="package-days" ng-model="package.nights" class="form-control" required type="text" />
+									<input style="width:300px!important;" id="package-days" ng-model="package.nights" required type="text" kendo-numerictextbox k-min="1" k-up-arrow-text="'Increment'"
+       									k-down-arrow-text="'Decrement'" />
 								</div>						
 							</div>						
 						</div>		
@@ -71,19 +72,20 @@
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-days">Check-In</label>
-									<input style="width:300px!important;" id="package-days" ng-model="package.checkInTime" class="form-control" required type="text" />
+									
+									<input style="width:300px!important;" id="package-days" ng-model="package.checkInTime" required type="text" kendo-time-picker />
 								</div>						
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
-									<label for="package-cost">Cost</label>
-									<input style="width:300px!important;" id="package-cost" ng-model="package.cost" class="form-control" required type="text" placeholder="Enter Cost..." />				
+									<label for="package-cost">Cost</label><br>
+									<input style="width:300px!important;" id="package-cost" ng-model="package.cost" required type="text" kendo-numerictextbox k-min="1" />				
 								</div>
 							</div>
 							<div class="col-md-4">
 								<div class="form-group">
 									<label for="package-cost">Package Code</label>
-									<input style="width:300px!important;" id="package-cost" ng-model="customcode" class="form-control" required type="text" />				
+									<input style="width:300px!important;" id="package-code" ng-model="customcode" class="k-textbox" required type="text" />				
 								</div>
 							</div>
 						</div>
@@ -93,7 +95,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label for="package-destination">Description</label>
-									<input style="width:1080px!important;" id="package-destination" ng-model="package.name" class="form-control" required type="text" />
+									<input style="width:1080px!important;" id="package-destination"  class="k-textbox" ng-model="package.name" required type="text" />
 								</div>						
 							</div>
 						</div>

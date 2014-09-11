@@ -7,6 +7,10 @@ travelManagerApp.controller('AddPackageController',
 		$scope.customcode="";
 		$scope.selectedHotel=null;
 		
+		$scope.datePickerConfig = {		  
+		  format : "MM/dd/yyyy"
+		};
+
 		var readHotelSource = new kendo.data.DataSource({
 			serverFiltering: true,	
 			transport: {
