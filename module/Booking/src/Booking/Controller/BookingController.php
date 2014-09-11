@@ -47,7 +47,7 @@ class BookingController extends AbstractRestfulController
 				$newBooking=new CustomerPackage();
 				$newBooking->CustomerPackageId=$packageid;
 				$newBooking->CustomerId=$postedData['customerid'];
-				$newBooking->StartDate=$package->start;
+				$newBooking->StartDate=new \DateTime($postedData['startDate']);//$package->start;
 				$newBooking->Status='PendingCheckin';								
 				return new JsonModel($this->getCustomerPackageTable()->createPackage($newBooking));
 			}

@@ -9,10 +9,12 @@
 				<span>{{booking.StartDate}}</span>
 				<span>{{booking.Nights}}</span>
 				<span>Check In time: </span><strong>{{booking.CheckInTime}}</strong><br/>
-				<span>Check In hotel: </span><strong>{{booking.CheckInHotel}}, {{booking.CheckInHotelAddress}}</strong>
+				<span>Check In hotel: </span><strong>{{booking.CheckInHotel}}, {{booking.CheckInHotelAddress}}</strong><br/>
+				<span>Status: </span><span ng-show="booking.Status == 'Checked-In'"><strong>{{booking.Status}}</strong></span>	
 			</div>
 			<div>				
-				<button ng-show="booking.Status == 'PendingCheckin'" type="submit" ng-click="checkInCustomer(booking)" class="btn btn-primary">Check In</button>				
+				<button ng-show="booking.Status == 'PendingCheckin'" type="submit" ng-click="checkInCustomer(booking)" class="btn btn-primary">Check In</button>
+
 			</div>
 		  </li>
 		</ul>

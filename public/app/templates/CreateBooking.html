@@ -1,0 +1,33 @@
+<!--<script type="text/ng-template" id="CreateBooking.html">-->
+	<div class="modal-header">
+		<h3 class="modal-title">Create Booking for {{packageObj.destination}} </h3>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-*">
+				<span>Hotel: {{packageObj.hotel}}</span><br>				
+			</div>			
+		</div>
+		<br>
+		<div class="row">			
+			<div class="col-md-*">
+				<span>Nights: {{packageObj.nights}}</span><br>				
+			</div>	
+		</div>
+		<br>
+		<div class="row">	
+			<form name="checkInBookingForm" role="form">
+				<div class="form-group">
+				  <div class="col-md-*">
+				  	<span>Start Date:</span>		  	
+					<input style="width:150px!important;" type="text" kendo-date-picker required placeholder="Check In Time" ng-model="packageObj.bookingStartDate">      
+				  </div>
+				</div>
+			</form>	 
+		</div>		
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()" ng-disabled="checkInBookingForm.$invalid">Save</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+<!--</script>-->

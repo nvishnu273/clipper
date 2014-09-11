@@ -5,24 +5,8 @@ travelManagerApp.controller('MyAssignmentListController',
 		
 		$scope.orderByParam = "StartDate";
 		
-		var t = '<div class="modal-dialog">' +
-              '<div class="modal-content">' +
-                '<div class="modal-header">' +
-                 '<button type="button" class="close" ng-click="close()" aria-hidden="true">&times;</button>' +
-                  '<h4 class="modal-title">Modal title</h4>' +
-                '</div>' +
-                '<div class="modal-body">' +
-                  '<p>One fine body&hellip;</p>' +
-                '</div>' +
-                '<div class="modal-footer">' +
-                  '<button type="button" class="btn btn-default" ng-click="close()">Close</button>' +
-                  '<button type="button" class="btn btn-primary" ng-click="close()">Save changes</button>' +
-                '</div>' +
-              '</div><!-- /.modal-content -->' +
-            '</div><!-- /.modal-dialog -->';
-			
-		var CheckInCustomerModalInstanceCtrl = function ($scope, $modalInstance, booking) {
-			console.log(booking);
+		
+		var CheckInCustomerModalInstanceCtrl = function ($scope, $modalInstance, booking) {			
 			$scope.booking = booking;
 			$scope.checkedIn=false;		  
 			$scope.selected = {
@@ -30,10 +14,13 @@ travelManagerApp.controller('MyAssignmentListController',
 			};
 
 			$scope.ok = function () {			
+				
 				bookingsService.checkInCustomer($scope.booking.CheckInTime,$scope.booking.Id).then(function(data) {							
 					$scope.checkedIn=true;
-					$modalInstance.close($scope.selected.item);			
+					$modalInstance.close($scope.checkedIn);			
 				});
+
+				$modalInstance.close($scope.checkedIn);			
 			};
 
 			$scope.cancel = function () {
@@ -46,6 +33,7 @@ travelManagerApp.controller('MyAssignmentListController',
 		});
 		
 		$scope.checkInCustomer=function (booking) {
+			
 			var modalInstance = $modal.open({
 			  templateUrl: 'templates/CheckInCustomer.html',
 			  controller: CheckInCustomerModalInstanceCtrl,			  
@@ -55,10 +43,11 @@ travelManagerApp.controller('MyAssignmentListController',
 				}
 			  }
 			});
-			modalInstance.result.then(function (checkedIn) {
-					console.log(checkedIn);
-					$scope.checkedIn = checkedIn;
+
+			modalInstance.result.then(function (checkedIn) {					
+					booking.Status = 'Checked-In';					
 				}, function () {					
 			});
 		};		
+
 	});

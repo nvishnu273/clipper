@@ -62,6 +62,7 @@ var travelManagerApp = angular.module('travelManagerApp', ['ngRoute','ngSanitize
 	        //var authData = localStorageService.get('authorizationData');
 	        if (Session) {
 	            config.headers.Authorization = 'Bearer ' + Session.id;
+	            //config.headers.Authorization = 'Bearer ' + 'a74743a5b35f335551cce5a4180366f534677f0924de53abb4d4ab4e8a41e3adrbd7Hl9HeazhByWU2jAatf30XyCd4N6duzV88YVWUHE=';
 	        }
 	 
 	        return config;
@@ -251,7 +252,7 @@ travelManagerApp.config(["growlProvider", "$httpProvider", function(growlProvide
 	growlProvider.globalTimeToLive(2000);	
 	$httpProvider.responseInterceptors.push(growlProvider.serverMessagesInterceptor);
 }]);
-	
+
 travelManagerApp.run(function($rootScope, $templateCache) {
    $rootScope.$on('$viewContentLoaded', function() {
       $templateCache.removeAll();

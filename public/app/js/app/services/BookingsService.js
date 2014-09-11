@@ -5,12 +5,13 @@ travelManagerApp.factory('bookingsService',
 		
 		return {
 				
-				createBooking : function(customerId, destination, packagecode) {
+				createBooking : function(customerId, destination, packagecode, startDate) {
 					var deferered = $q.defer();
 					var postData={};					
 					postData.customerid=customerId;
 					postData.destination=destination;
 					postData.packagecode=packagecode;					
+					postData.startDate=startDate;
 					var stringPostData = JSON.stringify(postData);
 					$http({
 							method: 'POST', 
@@ -39,6 +40,7 @@ travelManagerApp.factory('bookingsService',
 
 				getCustomerBookings : function(customerId) {
 					var deferered = $q.defer();
+					//$http({method: 'GET', url:'/booking/all/search/customer?id='+61})
 					$http({method: 'GET', url:'/booking/all/search/customer?id='+customerId})
 						.success(function(data,status,headers,config) {							
 							deferered.resolve(data);
