@@ -5,6 +5,7 @@ return array(
             'Account\Controller\Account' => 'Account\Controller\AccountController',
             'Account\Controller\Customer' => 'Account\Controller\CustomerController',
             'Account\Controller\CustomerNotification' => 'Account\Controller\CustomerNotificationController',            
+            'Account\Controller\NotificationHandler' => 'Account\Controller\NotificationHandlerController'
         ),
     ),
     'controller_plugins' => array(
@@ -46,6 +47,37 @@ return array(
                         ),
                     ),                         
                 ),                    
+            ),
+            'notification' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/notification',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Account\Controller',
+                        'controller'    => 'NotificationHandler'
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'customer' => array(
+                        'type' => 'segment',
+                            'options' => array(
+                                'route' => '/[:action]',
+                                'defaults' => array(                                     
+                                    'action' => 'customer'                                   
+                            ),
+                        ),
+                    ), 
+                    'internal' => array(
+                        'type' => 'segment',
+                            'options' => array(
+                                'route' => '/',
+                                'defaults' => array(                                     
+                                    'action' => 'internal'                                   
+                            ),
+                        ),
+                    ),                         
+                ),  
             ),
         ),                  
     ),        

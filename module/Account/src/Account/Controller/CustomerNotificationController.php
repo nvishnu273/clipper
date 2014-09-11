@@ -12,7 +12,7 @@ class CustomerNotificationController extends AbstractRestfulController
 {
 
 	protected $customerNotificationTable;
-	
+	protected $snsClient;
 	
 	public function get($id)
 	{			
@@ -40,6 +40,13 @@ class CustomerNotificationController extends AbstractRestfulController
 			$newNotification->dateCreated=date("Y-m-d H:i:s");
 			$newNotification->processed=$postedData['processed'];
 			$newNotification->messageType=$postedData['messageType'];
+			
+			
+			$result = $this->getSnsClient()->publish(array(
+					'TopicArn' => $this->getServiceLocator()->get('config')['sns_config']['topic_arn'];
+					'Message' => $postedData['packageId'],
+					'Subject' => "There are changes to the package"
+				));
 			
 			return new JsonModel(array('Notification' => $this->getCustomerNotificationTable()->createNotification($newNotification)));	
 		}
@@ -70,6 +77,15 @@ class CustomerNotificationController extends AbstractRestfulController
 	        $this->customerNotificationTable = $sm->get('Account\Model\NotificationTable');	        
 	    }
 	    return $this->customerNotificationTable;
+	}
+
+	public function getSnsClient()
+	{
+		if (!$this->snsClient) {
+	        $sm = $this->getServiceLocator();	        
+	        $this->snsClient = $sm->get('SnsClient');	        
+	    }
+	    return $this->snsClient;
 	}
 }
 

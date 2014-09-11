@@ -12,6 +12,11 @@ use Account\Model\UserTable;
 use Account\Model\Notification;
 use Account\Model\NotificationTable;
 
+
+use Account\Model\AuditLog;
+use Account\Model\AuditLogTable;
+
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -143,6 +148,17 @@ class Module
     {
         return array(
             'factories' => array(                
+                'Account\Model\AuditLogTable' => function($sm) {
+                    $auditLogTableGateway = $sm->get('AuditLogTableGateway');
+                    $auditLogTable = new AuditLogTable($auditLogTableGateway);
+                    return $auditLogTable;
+                },
+                'AuditLogTableGateway' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');                                      
+                    $resultSetPrototype = new ResultSet();                    
+                    $resultSetPrototype->setArrayObjectPrototype(new AuditLog());
+                    return new TableGateway('AuditLog',$dbAdapter,null,$resultSetPrototype);
+                },
                 'Account\Model\CustomerTable' => function($sm) {
                     $customerTableGateway = $sm->get('CustomerTableGateway');
                     $customerTable = new CustomerTable($customerTableGateway);

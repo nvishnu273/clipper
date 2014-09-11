@@ -17,7 +17,7 @@ class PackageController extends AbstractRestfulController
 	protected $customerPackageTable;
 	protected $travelPackageInstanceTable;
 	protected $tripReviewTable;
-	protected $snsClient;
+	
 
 	public function getList()
 	{		
@@ -68,11 +68,7 @@ class PackageController extends AbstractRestfulController
 			if ($packagedataobj->cost != $currentCost){			
 				
 				
-				$result = $this->getSnsClient()->publish(array(
-					'TopicArn' => 'arn:aws:sns:us-east-1:636786173882:Csutomer',			
-					'Message' => $packagedataobj->destination . "-" . $packagedataobj->packagecode,
-					'Subject' => "There are changes to the package"
-				));
+				
 				
 				$newNotification=new Notification();
 				$newNotification->messageId=$result['MessageId'];
@@ -284,15 +280,6 @@ class PackageController extends AbstractRestfulController
 	        $this->tripReviewTable = $sm->get('Trip\Model\TripReviewTable');	        
 	    }
 	    return $this->tripReviewTable;
-	}
-
-	public function getSnsClient()
-	{
-		if (!$this->snsClient) {
-	        $sm = $this->getServiceLocator();	        
-	        $this->snsClient = $sm->get('SnsClient');	        
-	    }
-	    return $this->snsClient;
-	}
+	}	
 }
 
