@@ -21,8 +21,8 @@ class NotificationHandlerController extends AbstractRestfulController
 
 
 			$notificationMessage = $this->getRequest()->getContent();
-			//var_dump($this->getAuditLogTable());
-			$this->getAuditLogTable()->create($notificationMessage);
+			$message = json_decode($notificationMessage);
+			$this->getAuditLogTable()->create($message->messageType . $message->MessageId . $message->Message . $message->Subject);
 			/*
 			$notificationMessage = Aws\Sns\MessageValidator\Message::fromRawPostData();
 			$type = $notificationMessage->get('Type');

@@ -29,7 +29,7 @@ class ApiAuthenticationListener
         if (
             ($controller == 'Account\Controller\Account' && $action == 'login') || 
             ($controller == 'ExternalApi\Controller\ExternalApi') ||
-            ($controller == 'Account\Controller\NotificationHandlerController')
+            ($controller == 'Account\Controller\NotificationHandler')
             ) {
             return;
         }

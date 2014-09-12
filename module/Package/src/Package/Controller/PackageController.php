@@ -18,6 +18,7 @@ class PackageController extends AbstractRestfulController
 	protected $travelPackageInstanceTable;
 	protected $tripReviewTable;
 	
+	protected $snsClient;
 
 	public function getList()
 	{		
@@ -50,8 +51,6 @@ class PackageController extends AbstractRestfulController
 	public function update($id,$data){
 		date_default_timezone_set('UTC');
 		
-		
-
 		if ($this->getRequest()->isPut()){					
 			$postedData=json_encode($data);
 			$packagedataobj=json_decode($postedData);
@@ -66,13 +65,18 @@ class PackageController extends AbstractRestfulController
 			
 			
 			if ($packagedataobj->cost != $currentCost){			
+				$packageId = $packagedataobj->destination . "-" . $packagedataobj->packagecode;
 				
-				
-				
+				$arn=$this->getServiceLocator()->get('config')['sns_config']['topic_arn'];
+				$result = $this->getSnsClient()->publish(array(
+					'TopicArn' => $arn,
+					'Message' => $packageId,
+					'Subject' => "There are changes to the package"
+				));
 				
 				$newNotification=new Notification();
 				$newNotification->messageId=$result['MessageId'];
-				$newNotification->packageId=$packagedataobj->destination . "-" . $packagedataobj->packagecode;
+				$newNotification->packageId=$packageId;
 				$newNotification->dateCreated=date("Y-m-d H:i:s");
 				$newNotification->processed=false;
 				$newNotification->messageType='PackageModified';
@@ -281,5 +285,14 @@ class PackageController extends AbstractRestfulController
 	    }
 	    return $this->tripReviewTable;
 	}	
+
+	public function getSnsClient()
+	{
+		if (!$this->snsClient) {
+	        $sm = $this->getServiceLocator();	        
+	        $this->snsClient = $sm->get('SnsClient');	        
+	    }
+	    return $this->snsClient;
+	}
 }
 
