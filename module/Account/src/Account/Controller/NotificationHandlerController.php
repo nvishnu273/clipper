@@ -22,20 +22,20 @@ class NotificationHandlerController extends AbstractRestfulController
 
 			$notificationMessage = $this->getRequest()->getContent();
 			$message = json_decode($notificationMessage);
+			$this->getAuditLogTable()->create($notificationMessage);
+
 			
 			switch ($message->Type) {
-				case 'SubscriptionConfirmation':
+				/*case 'SubscriptionConfirmation':
 					$this->getAuditLogTable()->create($message);					
 					$curl_session=curl_init();
 					curl_setopt($curl_session, CURLOPT_URL, $message->SubscribeURL));
 					curl_setopt($curl_session, CURLOPT_HEADER, 0);
 					curl_exec($curl_session);
 					curl_close($curl_session);
-					return new JsonModel(array('result' => "Subscription confirmed"));					
+					return new JsonModel(array('result' => "Subscription confirmed"));		*/			
 				case 'Notification':
-					
-					$this->getAuditLogTable()->create($message->Type . 
-							':' . $message->MessageId . ':' . $message->Message . ':' . $message->Subject);
+				
 
 					//Do an actual process			
 					sleep(5); 
@@ -48,7 +48,9 @@ class NotificationHandlerController extends AbstractRestfulController
 						$newNotification->processed=true;
 						$this->getCustomerNotificationTable()->updateNotification($newNotification);						
 					}
-					
+					else {
+						$this->getAuditLogTable()->create($message->MessageId . ' not found.');
+					}
 					break;
 				case 'UnsubscribeConfirmation':
 					
