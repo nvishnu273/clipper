@@ -22,62 +22,39 @@ class NotificationHandlerController extends AbstractRestfulController
 
 			$notificationMessage = $this->getRequest()->getContent();
 			$message = json_decode($notificationMessage);
-			$this->getAuditLogTable()->create($message->messageType . $message->MessageId . $message->Message . $message->Subject);
-			/*
-			$notificationMessage = Aws\Sns\MessageValidator\Message::fromRawPostData();
-			$type = $notificationMessage->get('Type');
-			$messageId = $notificationMessage->get('MessageId');
-			$message = json_decode($notificationMessage->get('Message'),true);	
-			$subject = $notificationMessage->get('Subject');
-			*/
 			
-			
-			/*
-			$message = json_decode($notificationMessage);	
-			var_dump($message);
-			
-			$type = $message->messageType;
-			$messageId = $message->MessageId;
-			$messageData = $message->Message; //json_decode($message['Message'],true);	
-
-			$subject = $message->Subject;
-			*/
-			/*
-			return new JsonModel(array('t'=>$messageData));
-			
-			switch ($type) {
+			switch ($message->Type) {
 				case 'SubscriptionConfirmation':
-					$file = new SplFileObject('notification.log', 'a');
-					$file->fwrite("Subscription URL... " . $message->get('SubscribeURL') . PHP_EOL );	
+					$this->getAuditLogTable()->create($message);					
 					$curl_session=curl_init();
-					curl_setopt($curl_session, CURLOPT_URL, $message->get('SubscribeURL'));
+					curl_setopt($curl_session, CURLOPT_URL, $message->SubscribeURL));
 					curl_setopt($curl_session, CURLOPT_HEADER, 0);
 					curl_exec($curl_session);
 					curl_close($curl_session);
-					echo "Subscription confirmed";
-					break;
+					return new JsonModel(array('result' => "Subscription confirmed"));					
 				case 'Notification':
 					
-					$file = new SplFileObject('notification.log', 'a');	
-					$file->fwrite("Starting to log subscription notification... " . PHP_EOL );
-					$file->fwrite("Subscription notification message... " . $message . PHP_EOL );
-					$file->fwrite("Subscription notification message id... " . $messageId . PHP_EOL );
-					$file->fwrite("Subscription notification subject... " . $subject . PHP_EOL );
-					$file->fwrite("Subscription notification packageid... " . $message['packageid'] . PHP_EOL );
+					$this->getAuditLogTable()->create($message->Type . 
+							':' . $message->MessageId . ':' . $message->Message . ':' . $message->Subject);
 
 					//Do an actual process			
 					sleep(5); 
-					if (travel_db_respository::processNotification($messageId,$file)){
-						$file->fwrite("Start processing the notification... " . $message['packageid'] . PHP_EOL );
-						travel_db_respository::markPackageForNotification($messageId,$message['packageid']);
+
+					if ($this->getCustomerNotificationTable()->fetch($message->MessageId)) {
+						$this->getAuditLogTable()->create("Start processing the notification... " . $message->Message);
+						$newNotification=new Notification();
+						$newNotification->messageId=$message->MessageId;			
+						$newNotification->dateProcessed=date("Y-m-d H:i:s");
+						$newNotification->processed=true;
+						$this->getCustomerNotificationTable()->updateNotification($newNotification);						
 					}
 					
 					break;
 				case 'UnsubscribeConfirmation':
-					echo "Unsubscription complete";
+					
 					break;
 			}
-			*/
+			
 		}
 	}
 
@@ -90,5 +67,13 @@ class NotificationHandlerController extends AbstractRestfulController
 	    return $this->auditLogTable;
 	}
 
+	public function getCustomerNotificationTable()
+	{
+		if (!$this->customerNotificationTable) {
+	        $sm = $this->getServiceLocator();	        
+	        $this->customerNotificationTable = $sm->get('Account\Model\NotificationTable');	        
+	    }
+	    return $this->customerNotificationTable;
+	}
 }
 
