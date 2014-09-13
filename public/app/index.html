@@ -148,8 +148,23 @@
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
 					<span class="label label-info">{{$parent.currentUser.firstname}}, {{$parent.currentUser.lastname}}</span>
+					<a class="btn collapse-data-btn" data-toggle="collapse" ng-href="/{{$location.path()}}/#my-notification2" ng-show="hasNotification()">
+						<span class="glyphicon glyphicon-envelope"></span> 
+					</a>
 					<button type="button" class="btn btn-default navbar-btn" ng-click="signOut()">Sign out</button>
 				</form>
+			</div>
+			<div class="navbar-right">				
+				<div id="my-notification2" class="collapse">					
+					<ul class="list-unstyled">						
+						<li ng-repeat="notification in notifications">
+							<i>New registration for {{notification.LastName}}, {{notification.FirstName}}</i>
+							<a>
+								<span class="glyphicon glyphicon-circle-arrow-right" title="Approve" ng-click="approveNewUserRequest($index)"></span>
+							</a>
+						</li>
+					</ul>									  
+				</div>	
 			</div>			
 		</div>		
 	</nav>

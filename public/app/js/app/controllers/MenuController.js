@@ -12,8 +12,8 @@ travelManagerApp.controller('MenuController',
 		
 		$scope.$on(AUTH_EVENTS.loginSuccess, function($) {	
 			var userType = Session.userType || 0;								
-			if (userType == 0){				
-				packageCatalogService.getNotifications(Session.userId).then(function(data) {
+			if (userType == 0 || userType==2){				
+				packageCatalogService.getNotifications(Session.userType,Session.userId).then(function(data) {
 					$scope.notifications=[];
 					angular.forEach(data, function(value, key) {
 						this.push(value);				   
@@ -25,5 +25,14 @@ travelManagerApp.controller('MenuController',
 		$scope.signOut = function(){
 			Session.destroy();
 			$rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+		};
+
+		$scope.approveNewUserRequest = function(index){
+			var notificationToApprove = $scope.notifications[index];
+			authenticationService.approveNewUser(notificationToApprove).then(function(data) {
+					console.log(data);
+ 					$scope.notifications.splice(index, 1);
+ 					console.log($scope.notifications);
+				});
 		};
 	});

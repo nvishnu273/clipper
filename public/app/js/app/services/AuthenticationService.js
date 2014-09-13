@@ -62,6 +62,21 @@ travelManagerApp.factory('authenticationService',
 						});
 					return deferered.promise;				  
 				},
+				approveNewUser: function (newUserRequest) {				  
+					var deferered = $q.defer();
+					var data={};																				
+					$http({
+							method: 'POST', 
+							url:'/account/approveNewUser',
+							data: newUserRequest
+						})
+						.success(function(data,status,headers,config) {							
+							deferered.resolve(data);
+						}).error(function(data,status,headers,config) {
+							deferered.reject(status);
+						});
+					return deferered.promise;				  
+				},
 				isAuthenticated: function () {					
 				  return !!Session.userId;
 				},

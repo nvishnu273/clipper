@@ -18,7 +18,7 @@ class CustomerNotificationController extends AbstractRestfulController
 	{			
 		$allGetValues = $this->params()->fromQuery();		
 
-		if (empty($allGetValues['messageId'])) {					
+		if (empty($allGetValues['messageId'])) {								
 			return new JsonModel($this->getCustomerNotificationTable()->fetchAll($id));		    
 		}
 		else {			

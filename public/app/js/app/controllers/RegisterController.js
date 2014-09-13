@@ -19,14 +19,15 @@ travelManagerApp.controller('RegisterController',
 				userType: 0,
 				userTypeName: 'Customer',
 			  };
-			  authenticationService.login(credentials).then(function (d) {			  				  
-				  $scope.$parent.currentUser=d.user;
-				  $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+			  authenticationService.login(credentials).then(function (d) {				  		
+				  //$scope.$parent.currentUser=d.user;
+				  //$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+
 				}, function () {
-				  $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+				  //$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 				});			  
 			}, function () {
-			  $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+			  //$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 			});
 		};
 		

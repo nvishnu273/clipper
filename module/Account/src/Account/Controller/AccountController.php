@@ -3,6 +3,7 @@
 namespace Account\Controller;
 
 use Account\Form\Account;
+use Account\Model\Notification;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
@@ -16,6 +17,7 @@ class AccountController extends AbstractRestfulController
 {	
 
 	protected $accountTable;
+	protected $customerNotificationTable;
 
 	public function indexAction()
 	{	
@@ -64,6 +66,40 @@ class AccountController extends AbstractRestfulController
 		}
 	}	
 
+	public function approveNewUserAction()
+	{
+		if ($this->getRequest()->isPost()){		
+			$input = $this->getRequest()->getContent();
+			$postedData=json_decode($input,true);
+
+			$customer = $this->getAccountTable(0)->approveRegistration($postedData);
+			if ($customer) {				
+				$newNotification=new Notification();
+				$newNotification->messageId=$postedData['MessageId'];			
+				$newNotification->dateProcessed=date("Y-m-d H:i:s");
+				$newNotification->processed=true;
+				$this->getCustomerNotificationTable()->updateNotification($newNotification);	
+
+				return new JsonModel([]);
+			}
+		}
+	}
+
+	public function notificationAction()
+	{
+		$allGetValues = $this->params()->fromQuery();		
+		$userType = $allGetValues['userType'];
+		
+
+		if ($userType == 0) {		
+			$id = $allGetValues['id'];						
+			return new JsonModel($this->getCustomerNotificationTable()->fetchAll($id));		    
+		}
+		else {			
+			return new JsonModel($this->getCustomerNotificationTable()->fetchAllInternal());		
+		}	
+	}
+
 	/* account/updatepassword */
 	public function updatePassword($userType,$userName,$password){	
 		/*
@@ -106,6 +142,14 @@ class AccountController extends AbstractRestfulController
 	    return $this->accountTable;
 	}
 
-	
+	public function getCustomerNotificationTable()
+	{
+		if (!$this->customerNotificationTable) {
+	        $sm = $this->getServiceLocator();	        
+	        $this->customerNotificationTable = $sm->get('Account\Model\NotificationTable');	        
+	    }
+	    return $this->customerNotificationTable;
+	}	
+
 }
 

@@ -215,9 +215,9 @@ travelManagerApp.factory('packageCatalogService',
 					return deferered.promise;									
 				},
 				
-				getNotifications : function(customerId) {
+				getNotifications : function(userType, id) {
 					var deferered = $q.defer();
-					$http({method: 'GET', url:'/customer/' + customerId + '/notification'})
+					$http({method: 'GET', url:'/account/notification' + '?userType=' + userType + '&id=' + id})
 						.success(function(data,status,headers,config) {							
 							deferered.resolve(data);
 						}).error(function(data,status,headers,config) {

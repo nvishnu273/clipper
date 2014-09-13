@@ -67,7 +67,7 @@ class PackageController extends AbstractRestfulController
 			if ($packagedataobj->cost != $currentCost){			
 				$packageId = $packagedataobj->destination . "-" . $packagedataobj->packagecode;
 				
-				$arn=$this->getServiceLocator()->get('config')['sns_config']['topic_arn'];
+				$arn=$this->getServiceLocator()->get('config')['sns_config']['customer_topic_arn'];
 				$result = $this->getSnsClient()->publish(array(
 					'TopicArn' => $arn,
 					'Message' => $packageId,

@@ -51,6 +51,13 @@ class CustomerTable implements ServiceLocatorAwareInterface
 		return $row;
 	}
 
+	public function fetchByEmail($email)
+	{
+		$rowset = $this->tableGateway->select(array('Email' => $email));
+		$row = $rowset->current();		
+		return $row;
+	}
+
 	public function getPaymentToken($id)
 	{
 		
@@ -81,12 +88,13 @@ class CustomerTable implements ServiceLocatorAwareInterface
 		$qi = function($name) use ($dbAdapter) { return $dbAdapter->platform->quoteIdentifier($name); };
 		$fp = function($name) use ($dbAdapter) { return $dbAdapter->driver->formatParameterName($name); };
 
-		$sql = 'SELECT Id,FirstName,LastName,0 as Type,Email,Password FROM ' . $qi('Customer') . 'WHERE Email = ' . $fp('email');
+		$sql = 'SELECT Id,FirstName,LastName,0 as Type,Email,Password FROM ' . $qi('Customer') . 'WHERE Email = ' . $fp('email')
+				. ' and Activated = 1';
 
     	$statement = $dbAdapter->query($sql);
 
     	$parameters = array(
-		    'email' => $email
+		    'email' => $email,		    
 		);
 		$results = $statement->execute($parameters);
 
@@ -97,6 +105,22 @@ class CustomerTable implements ServiceLocatorAwareInterface
 			return $row['Id'];
 		else 
 			return 0;
+	}
+
+	public function approveRegistration($registrationRequest)
+	{				
+
+		$sm = $this->getServiceLocator();
+		$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter'); 
+
+		$data = array(
+		    'Activated' => true,    		    		    
+		 );
+		
+		$this->tableGateway->update($data, array('Id' => $registrationRequest['Id']));
+	    $customer = $this->fetch($registrationRequest['Id']);
+	    
+	    return $customer;
 	}
 
 	public function saveCustomer(Customer $customer,$password)
@@ -120,7 +144,7 @@ class CustomerTable implements ServiceLocatorAwareInterface
 		     $this->tableGateway->insert($data);
 		     $id = $this->tableGateway->lastInsertValue;
 		     $user = $this->fetchUser($id);
-		     return $user;
+		     
 		 } else {
 		     if ($this->getCustomer($id)) {
 		         $this->tableGateway->update($data, array('Id' => $id));
@@ -128,7 +152,7 @@ class CustomerTable implements ServiceLocatorAwareInterface
 		         throw new \Exception('Customer id does not exist');
 		     }
 		 }
-
+		 return $id;
 	}
 
 	public function deleteCustomer($id)

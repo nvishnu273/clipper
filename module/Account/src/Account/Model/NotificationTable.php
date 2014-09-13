@@ -71,6 +71,39 @@ class NotificationTable implements ServiceLocatorAwareInterface
 		return $notifications;
 	}
 
+	public function fetchAllInternal()
+	{
+		
+		$sm = $this->getServiceLocator();
+		$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter'); 
+		
+		$qi = function($name) use ($dbAdapter) { return $dbAdapter->platform->quoteIdentifier($name); };
+		$fp = function($name) use ($dbAdapter) { return $dbAdapter->driver->formatParameterName($name); };
+		
+		$sql = 'select a.Id, a.FirstName,a.LastName, b.MessageId  from ' 					
+					. 'TravelAppUser.Customer a join '										
+					. 'TravelAppUser.Notification b'
+					. ' on a.Id=b.PacakgeId '
+					. ' where b.Processed=0 and b.MessageType=' .  $fp('MessageType');
+
+		
+
+    	$statement = $dbAdapter->query($sql);
+
+    	$parameters = array(		    
+		    'MessageType' => 'NewRegistration'
+		);
+
+		$results = $statement->execute($parameters);
+		
+		$notifications=[];
+		foreach($results as $notification) {
+		  $notifications[]=$notification;
+		}
+
+		return $notifications;
+	}
+
 	public function fetch($id)
 	{		
 		$rowset = $this->tableGateway->select(array('MessageId' => $id));
