@@ -6,6 +6,7 @@ use Account\Model\Notification;
 
 use Zend\Mvc\Controller\AbstractRestfulController;
 
+use common\Utility;
 use common\SearchManager;
 
 use Zend\View\Model\JsonModel;
@@ -103,6 +104,26 @@ class PackageController extends AbstractRestfulController
 			$review=rand(0, 5);
 			
 			SearchManager::IndexPackage($package,$packageId,count($totalPackage),$review);
+		}
+
+		return new JsonModel(array('Status' => 'OK'))		;
+	}
+
+	public function indexReviewAllAction()
+	{		
+		date_default_timezone_set('UTC');	
+		$reviews=$this->getTripReviewTable()->getAllReviews();
+		
+		foreach($reviews as &$review){	
+			$rating=rand(0, 5);
+			$review['Rating']=$rating;
+			$coords=explode(',',$review['Location']);
+			$result=Utility::GetAddressFromLatLong($coords[0],$coords[1]);
+			if ($result['status'] !=  'ZERO_RESULTS'){			
+				$address=(string) $result['results'][0]['formatted_address'];
+				$review['formatted_address']=$address;						
+			}			
+			SearchManager::IndexReview($review);
 		}
 
 		return new JsonModel(array('Status' => 'OK'))		;
@@ -240,6 +261,32 @@ class PackageController extends AbstractRestfulController
 		return new JsonModel($tripReviews);	
 	}
 
+	public function geoReviewAction()
+	{	
+
+		$allGetValues = $this->params()->fromQuery();
+		if (isset($_GET['radial']) && (!empty($_GET['radial']))) {
+			$radial = $_GET['radial'];
+		}
+		if (isset($_GET['address']) && (!empty($_GET['address']))) {
+			$address = $_GET['address'];
+		}
+		
+		$d=5;
+		
+		if (isset($allGetValues['radial']) && $radial=='false'){
+			$reviews=SearchManager::SearchByAddress($address);
+		}
+		else {
+			$url="https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyASi0J3CxTwf8wGsX60t6T24gPnwkTScgc&sensor=false&address=" . urlencode($address);
+			$geocodeinformation=Utility::GetLatLongFromAddress($url);
+			$locationCoord=$geocodeinformation['results'][0]['geometry']['location'];
+			$locationCoordCsv=$locationCoord['lat'].','.$locationCoord['lng'];			
+			$reviews=SearchManager::SearchNearbyPackages($locationCoordCsv,$d);			
+		}	
+		return new JsonModel($reviews);	
+	}
+
 	/* returns package table from service locator */
 	public function getPackageTable()
 	{
@@ -294,5 +341,6 @@ class PackageController extends AbstractRestfulController
 	    }
 	    return $this->snsClient;
 	}
+
 }
 

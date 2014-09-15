@@ -27,7 +27,7 @@ travelManagerApp.factory('tripService',
 					return deferered.promise;									
 				},
 				
-				addTripReview : function(location,tripId,firstname,lastname,customerID,rating,comment) {												
+				addTripReview : function(location,tripId,firstname,lastname,customerID,rating,comment,placeName) {												
 					var deferered = $q.defer();	
 					var postData={};					
 					postData.location=location;
@@ -37,10 +37,11 @@ travelManagerApp.factory('tripService',
 					postData.customerID=customerID;
 					postData.rating=rating;
 					postData.comment=comment;
+					postData.name=placeName;
 					var stringPostData = JSON.stringify(postData);
 					$http({
 						method: 'POST', 
-						url:'/trip/'+tripId+'/review/add',//'http://54.209.199.253/add-trip-review.php',
+						url:'/trip/'+tripId+'/review/add',
 						data: stringPostData
 						})
 						.success(function(data,status,headers,config) {							
@@ -52,7 +53,7 @@ travelManagerApp.factory('tripService',
 				},
 				searchReviews: function(address,radial) {
 					var deferered = $q.defer();
-					$http({method: 'GET', url:'http://54.209.199.253/search-review.php?address='+address+'&radial='+radial})
+					$http({method: 'GET', url:'/package/search/geoReview?address='+address+'&radial='+radial})
 						.success(function(data,status,headers,config) {							
 							deferered.resolve(data);
 						}).error(function(data,status,headers,config) {

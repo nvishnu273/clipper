@@ -40,5 +40,12 @@ namespace Trip\Model;
 			
 			return $review;
 		}
+
+		public function getAllReviews()
+		{			
+			$reviews = $this->dynamoDbTripReviewTableGateway->getAllReviews();						
+			
+			return $reviews;
+		}
 	}
  ?>

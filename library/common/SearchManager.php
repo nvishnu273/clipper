@@ -146,6 +146,7 @@ class SearchManager {
 	
 	/*** Loaction/Review search ***/
 	public static function IndexReview($review){
+
 		$client=new \Solarium\Client(SearchManager::$site_clipper_location);
 		$updateQuery=$client->createUpdate();
 		$doc1=$updateQuery->createDocument();
@@ -155,6 +156,7 @@ class SearchManager {
 		$doc1->reviewBy_t=$review['ReviewBy'];
 		$doc1->rating_i=$review['Rating'];
 		$doc1->address_t=$review['formatted_address'];
+		$doc1->name_t=$review['name'];
 		$doc1->location_p=$review['Location'];
 		
 		$updateQuery->addDocuments(array($doc1),true);
@@ -166,14 +168,15 @@ class SearchManager {
 	public static function SearchByAddress($address){
 		$client=new \Solarium\Client(SearchManager::$site_clipper_location);
 		$query=$client->createSelect();
-		$query->setQuery('address_t:*'.$address.'*');
+		$query->setQuery('name_t:*'.$address.'*');
 			
-		$query->setFields(['id','packageid_t','comment_t','reviewBy_t','rating_i','address_t','location_p']);		
+		$query->setFields(['id','packageid_t','comment_t','reviewBy_t','rating_i','address_t','name_t','location_p']);		
 		$query->addSort('rating_i',$query::SORT_DESC);
 		$resultSet=$client->select($query);
 		$totalFound=$resultSet->getNumFound();
 		$reviews=[];
 		foreach($resultSet as $doc){
+			
 			$idParts=explode('-',$doc->id);
 			$tripIdParts=explode('-',$doc->packageid_t);
 			array_pop($tripIdParts);
@@ -187,7 +190,8 @@ class SearchManager {
 				"ReviewBy"=>$doc->reviewBy_t,
 				"Rating"=>$doc->rating_i,
 				"Address"=>$doc->address_t,				
-				"Location"=>$doc->location_p);			
+				"Location"=>$doc->location_p,
+				"Name"=>$doc->name_t);			
 		}
 		return array('TotalRecords'=>$totalFound,'Result'=>$reviews);
 	}

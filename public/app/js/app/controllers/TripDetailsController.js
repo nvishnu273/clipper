@@ -54,11 +54,15 @@ travelManagerApp.controller('TripDetailsController',
 		$scope.rating=4;
 		$scope.addTripReview = function(place,parent) {	
 			console.log(parent.comment);
-			tripService.addTripReview(place.map.center.latitude+","+place.map.center.longitude,$routeParams.tripId,$scope.trip.customer.FirstName,
+			tripService.addTripReview(
+				place.map.center.latitude+","+place.map.center.longitude,
+				$routeParams.tripId,
+				$scope.trip.customer.FirstName,
 				$scope.trip.customer.LastName,
 				$scope.trip.customer.CustomerId,
 				$scope.rating,
-				parent.comment).then(function(data) {	
+				parent.comment,
+				place.name).then(function(data) {	
 					parent.comment="";
 					place.Reviews.push(data);
 			});	

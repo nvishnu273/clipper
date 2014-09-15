@@ -38,9 +38,10 @@ class TripReviewController extends AbstractRestfulController
 		$coords=explode(',',$review['Location']);
 		$result=Utility::GetAddressFromLatLong($coords[0],$coords[1]);
 		
-		if ($result['status'] !=  'ZERO_RESULTS'){			
+		if ($result['status'] !=  'ZERO_RESULTS'){						
 			$address=(string) $result['results'][0]['formatted_address'];
-			$review['formatted_address']=$address;						
+			$review['formatted_address']=$address;		
+			$review['name']=$postdataobj['name'];				
 		}
 		SearchManager::IndexReview($review);
 	
@@ -55,6 +56,8 @@ class TripReviewController extends AbstractRestfulController
 	    ));		    
 	}
 	
+	
+
 	/* returns customer package table from service locator */	
 	public function getTripReviewTable()
 	{

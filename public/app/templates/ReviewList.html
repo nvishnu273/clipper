@@ -7,7 +7,7 @@
 						<form name="searchReviewForm">
 							<div class="col-md-8">
 								<input type="text" class="form-control" placeholder="Address" required ng-model="address">	
-								<input type="checkbox" ng-model="radial"> Search nearby Locations
+								<!--<input type="checkbox" ng-model="radial"> Search nearby Locations-->
 							</div>
 							<div class="col-md-2">
 								<button id="find-review" type="submit" ng-disabled="searchReviewForm.$invalid" 
@@ -22,7 +22,8 @@
 							  <li ng-repeat="review in reviews">
 								<strong>{{review.Address}}</strong>, <i>{{review.Comment}}</i>, <strong>{{review.ReviewBy}}</strong>, <strong>{{review.ReviewDate}}</strong>														
 								<rating value="review.Rating" max="5" readonly="true"></rating>
-								<a href="/packages/{{review.Destination}}/{{review.PackageCode}}">View Package</a>
+								<a href="/app/packages/{{review.Destination}}/{{review.PackageCode}}">View Package</a>
+								<button type="submit" ng-click="viewNearby(review)" class="btn btn-primary">View Nearby Locations</button>
 							  </li>
 							</ul>
 						</div>
