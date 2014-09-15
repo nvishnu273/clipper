@@ -12,23 +12,19 @@ travelManagerApp.controller('RegisterController',
 		
 		$scope.registerNewCustomer = function(customer){									
 			authenticationService.createNewCustomer(customer).then(function (d) {	
-				console.log(d);		  			  
-			  var credentials = {
-				username: $scope.customer.email,
-				password: $scope.customer.password,
-				userType: 0,
-				userTypeName: 'Customer',
-			  };
-			  authenticationService.login(credentials).then(function (d) {				  		
-				  //$scope.$parent.currentUser=d.user;
-				  //$rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-
-				}, function () {
-				  //$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-				});			  
-			}, function () {
+				if (typeof d.message != 'undefined') {
+					console.log(d);
+				}
+				else {
+					var url = '/register/' + d.User + '/status';			
+					$location.path(url);
+				}
+				
+			}, function (status) {
+				console.log(status);
 			  //$rootScope.$broadcast(AUTH_EVENTS.loginFailed);
 			});
+
 		};
 		
 	});

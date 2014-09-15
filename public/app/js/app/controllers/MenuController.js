@@ -29,8 +29,7 @@ travelManagerApp.controller('MenuController',
 
 		$scope.approveNewUserRequest = function(index){
 			var notificationToApprove = $scope.notifications[index];
-			authenticationService.approveNewUser(notificationToApprove).then(function(data) {
-					console.log(data);
+			authenticationService.approveNewUser(notificationToApprove).then(function(data) {					
  					$scope.notifications.splice(index, 1);
  					console.log($scope.notifications);
 				});

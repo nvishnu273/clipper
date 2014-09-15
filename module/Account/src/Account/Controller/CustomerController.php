@@ -38,6 +38,8 @@ class CustomerController extends AbstractRestfulController
 		$user = $this->getCustomerTable()->fetchByEmail($data['email']);
 
 		if ($user) {
+			//$statusCode = 401;
+			//$this->response->setStatusCode($statusCode);
 			return new JsonModel(array('message' => 'User exists'));
 		}
 

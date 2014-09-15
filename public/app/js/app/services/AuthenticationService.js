@@ -39,7 +39,7 @@ travelManagerApp.factory('authenticationService',
 				},
 				getAccountInfo : function(customerId) {
 					var deferered = $q.defer();
-					$http({method: 'GET', url:'http://54.209.199.253/get-account-info.php?userId='+customerId})
+					$http({method: 'GET', url:'/customer/'+customerId})
 						.success(function(data,status,headers,config) {							
 							deferered.resolve(data);
 						}).error(function(data,status,headers,config) {

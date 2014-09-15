@@ -99,6 +99,15 @@ var travelManagerApp = angular.module('travelManagerApp', ['ngRoute','ngSanitize
 									} 
 								}
 				)
+				.when('/register/:id/status', {
+									templateUrl:  'templates/RegisterStatus.html', 
+									controller: 'RegisterStatusController',
+									data: {
+										authorizedRoles: [USER_ROLES.anonymous]
+									} 
+								}
+				)
+
 				.when('/account', {
 									templateUrl:  'templates/Account.html', 
 									controller: 'AccountController',
