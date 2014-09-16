@@ -14,7 +14,8 @@ travelManagerApp.controller('ReviewListController',
 		};
 		$scope.viewNearby = function(review){						
 			tripService.searchReviews(review.Address,true).then(function(data) {		
-				$scope.reviews = data.Result;
+				//$scope.reviews = data.Result;
+				review.nearbyReviews = data.Result;
 			});	
 		};
 	});

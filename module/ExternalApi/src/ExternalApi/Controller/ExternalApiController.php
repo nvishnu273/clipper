@@ -13,6 +13,7 @@ class ExternalApiController extends AbstractRestfulController
 	{
 		return new JsonModel(array('all' => 'hit'));
 	}
+	//mql freebase
 	public function cityAction()
 	{			
 		$allGetValues = $this->params()->fromQuery();
@@ -28,6 +29,7 @@ class ExternalApiController extends AbstractRestfulController
 		}			
 		return new JsonModel($airportCodes);		
 	}	
+	//factual
 	public function hotelAction()
 	{	
 		$allGetValues = $this->params()->fromQuery();				
@@ -43,6 +45,7 @@ class ExternalApiController extends AbstractRestfulController
 			return new JsonModel($hotelResults);	
 		}		
 	}
+	//google places
 	public function addressAction()
 	{			
 		$allGetValues = $this->params()->fromQuery();
@@ -52,6 +55,7 @@ class ExternalApiController extends AbstractRestfulController
 		$geocodeinformation['results'][0]['geometry']['location']['formatted_address'] = $address;	
 		return new JsonModel($geocodeinformation['results'][0]['geometry']['location']);		
 	}	
+	//google places
 	public function nearbyAction()
 	{			
 		$allGetValues = $this->params()->fromQuery();
@@ -88,6 +92,7 @@ class ExternalApiController extends AbstractRestfulController
 
 		return new JsonModel($pageResult);		
 	}	
+	//mql freebase
 	public function latlngAction()
 	{			
 		$allGetValues = $this->params()->fromQuery();

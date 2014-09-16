@@ -4,21 +4,36 @@
 			<h3 class="modal-title">Check In Customer {{booking.FirstName}} {{booking.LastName}} </h3>
 		</div>
 		<div class="modal-body">
-			<div>
-				<div class="col-md-4">
-					<span>Hotel: {{booking.CheckInHotelAddress}}, Airport:  {{booking.Airport}}</span>
-				 </div>
-				 <div class="col-md-4">
-					<span>Package: {{booking.PackageId}}, Nights:  {{booking.Nights}}</span>
+			<div class="row">
+				<div class="col-md-12">
+					<span>Hotel: {{booking.CheckInHotelAddress}}</span>
+				 </div>				 
+			</div>
+			<div class="row">				
+				 <div class="col-md-12">
+					<span>Airport: {{booking.Airport}}</span>
 				 </div>
 			</div>
-			<form name="checkInBookingForm" role="form">
-				<div class="form-group">
-				  <div class="col-md-4">
-					<input type="text" class="form-control" kendo-time-picker required placeholder="Check In Time" ng-model="booking.CheckInTime">      
-				  </div>
-				</div>
-			</form>
+			<div class="row">				
+				 <div class="col-md-12">
+					<span>Nights:  {{booking.Nights}}</span>
+				 </div>
+			</div>
+			<div class="row">				
+				 <div class="col-md-12">
+					<span>Package: {{booking.CustomerPackageId}}</span>
+				 </div>
+			</div>
+			<div class="row">
+				<form name="checkInBookingForm" role="form">
+					<div class="form-group">
+					  <div class="col-md-12">
+					  	<label for="checkInTime">Enter Checking time:</label>
+						<input type="text" id="checkInTime" style="width:150px;" class="form-control" kendo-time-picker required placeholder="Check In Time" ng-model="booking.CheckInTime">      
+					  </div>
+					</div>
+				</form>
+			</div>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-primary" ng-click="ok()" ng-disabled="checkInBookingForm.$invalid">Save</button>

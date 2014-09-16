@@ -34,10 +34,10 @@
 		  <li ng-repeat="booking in bookings" class="thumbnail">		
 			<a href="/app/booking/{{booking.CustomerId}}/{{booking.CustomerPackageId}}/{{booking.StartDate}}">{{booking.Name}}</a>			
 			<div class="well hoverwell">
-				<span>{{booking.FirstName}}, {{booking.LastName}}</span>
-				<span>{{booking.StartDate}}</span>
-				<span>{{booking.CheckInTime}}</span>
-				<span>{{booking.Nights}}</span>							
+				<span>{{booking.FirstName}}, {{booking.LastName}}</span><br/>
+				<span>Starts on {{booking.StartDate}}</span><br/>
+				<span>Check in time {{booking.CheckInTime}}</span><br/>
+				<span>{{booking.Nights}} days</span><br/>						
 			</div>
 		  </li>
 		</ul>

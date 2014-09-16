@@ -152,7 +152,8 @@ class Utility {
 
 	/* USES Factual DataSet */
 	public static function GetHotelInformation($filterHotel){	
-		$url="http://api.v3.factual.com/t/hotels-v3/?filters=".$filterHotel."&limit=5"."&KEY=WZSCSjKmBO3WqBIHfF9dyVhFxpTwsQPzPwKNmQC2";
+		//$url="http://api.v3.factual.com/t/hotels-v3/?filters=".$filterHotel."&limit=5"."&KEY=WZSCSjKmBO3WqBIHfF9dyVhFxpTwsQPzPwKNmQC2";//for ivnavin@hotmail.com
+		$url="http://api.v3.factual.com/t/hotels-v3/?filters=".$filterHotel."&limit=5"."&KEY=Df1MSFhBOsXpB40LMJG8yiASAH15B9uZFY66CUzz"; //for ivnavin@gmail.com
 
 		$curl_session=curl_init();
 		curl_setopt($curl_session, CURLOPT_URL, $url);

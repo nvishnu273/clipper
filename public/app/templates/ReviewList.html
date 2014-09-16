@@ -19,11 +19,27 @@
 					<div class="row" style="margin-top:20px;">
 						<div class="col-md-12">
 							<ul class="list-unstyled">
-							  <li ng-repeat="review in reviews">
-								<strong>{{review.Address}}</strong>, <i>{{review.Comment}}</i>, <strong>{{review.ReviewBy}}</strong>, <strong>{{review.ReviewDate}}</strong>														
-								<rating value="review.Rating" max="5" readonly="true"></rating>
-								<a href="/app/packages/{{review.Destination}}/{{review.PackageCode}}">View Package</a>
-								<button type="submit" ng-click="viewNearby(review)" class="btn btn-primary">View Nearby Locations</button>
+
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+										  <li ng-repeat="review in reviews">
+											<strong>{{review.Address}}</strong>, <i>{{review.Comment}}</i>, <strong>{{review.ReviewBy}}</strong>, <strong>{{review.ReviewDate}}</strong>														
+											<rating value="review.Rating" max="5" readonly="true"></rating>
+											<a href="/app/packages/{{review.Destination}}/{{review.PackageCode}}">(View Package)</a>						
+											<a class="btn collapse-data-btn" data-toggle="collapse" ng-click="viewNearby(review)" ng-href="/{{$location.path()}}/#review-{{review.ReviewDate}}">(See reviews for Nearby places)</a>			
+
+											<div id="review-{{review.ReviewDate}}" class="collapse">		
+												<ul class="list-unstyled">						
+													<li ng-repeat="nearby in review.nearbyReviews">
+														<strong>{{nearby.Address}}</strong>, <i>{{nearby.Comment}}</i>, <strong>{{nearby.ReviewBy}}</strong>, <strong>{{nearby.ReviewDate}}</strong>														
+														<rating value="nearby.Rating" max="5" readonly="true"></rating>
+													</li>
+												</ul>
+											</div>
+										</h4>
+									</div>
+								</div>								
 							  </li>
 							</ul>
 						</div>

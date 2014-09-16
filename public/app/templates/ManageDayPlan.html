@@ -32,8 +32,7 @@
 								</div>
 							</div>						  
 						</h4>			
-					</div>			
-						
+					</div>									
 				</div>
 				
 				<div class="panel-body">
@@ -119,18 +118,25 @@
 									<ul class="list-unstyled">											
 										<li ng-repeat="place in searchNearByPlacesResult.places" style="padding-top:10px;">
 											<div class="container">
-												<div class="row">																
-													<div class="col-md-8">																													
-														<google-map center="place.map.center" zoom="place.map.zoom"></google-map>
-													</div>
-													<div class="col-md-3">
-														<img src="{{place.icon}}" title="{{place.name}}" /></br>
+												<div class="row">	
+													<div class="col-md-2">
+														<!--<img src="{{place.icon}}" title="{{place.name}}" /></br>-->
 														<span>Name:</span><span>{{place.name}}</span></br>     
 														<span>Location:</span><span>{{place.vicinity}}</span></br> 
 														<rating value="place.rating" max="5" readonly="true"></rating></br>
+														<!-- <a class="btn collapse-data-btn" data-toggle="collapse" ng-href="/{{$location.path()}}/#photo-{{$index}}">
+															View Map
+														</a> -->
 														<button id="plan-day-{{$index}}" type="submit"
 																ng-click="addLocationToPlanDay(place)" class="btn btn-primary">Add</button>
-													</div>													
+														
+													</div>
+													<div class="col-md-2">
+														<img src="{{place.icon}}" title="{{place.name}}" />
+													</div>
+													<div class="col-md-6">																<google-map center="place.map.center" zoom="place.map.zoom"></google-map>		
+													</div>
+																									
 												</div>
 											</div>
 										</li>

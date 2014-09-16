@@ -15,10 +15,10 @@ travelManagerApp.controller('LoginController',
 		}];
 		
 		$scope.credentials = {
-			username: 'tadmin1',
-			password: 'P@ssword1',
-			userType: 2,
-			userTypeName: 'Manager',
+			username: '',
+			password: '',
+			userType: 0,
+			userTypeName: 'Customer',
 		};
 		
 		/*
